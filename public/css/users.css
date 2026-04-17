@@ -1,0 +1,1629 @@
+
+/*===================WEB MODE CONTENT INSIDE THE USERS MANAGMENT====================*/
+
+/* ======WEB AND MOBILE Styling for a deactivated row================== */
+/* 1. Dim the text in the row so it looks "turned off" */
+.row-disabled .user-info-cell, 
+.row-disabled .badge-role, 
+.row-disabled .status-pill {
+    opacity: 0.4;
+    filter: grayscale(1);
+}
+
+/* 2. LOCK: Disable clicks on Reset Password link and Edit icon */
+.row-disabled .edit-icon, 
+.row-disabled .reset-icon,
+.row-disabled a:has(.reset-icon) { 
+    pointer-events: none !important; /* This physically stops the click */
+    opacity: 0.2;                   /* Makes it look grayed out */
+    cursor: not-allowed;
+}
+
+/* 3. KEEP TOGGLE CLICKABLE: Make sure the Activate button still works */
+.row-disabled .activate-mode {
+    pointer-events: auto !important; 
+    margin-left: 22px;
+    opacity: 1 !important;
+    filter: none !important;
+    color: #10b935 !important; /* Green for Activate */
+}
+.pagination-container {
+    position: fixed !important;
+    bottom: 0px !important;       /* Anchors to bottom edge of the screen */
+    left: 260px !important;        /* Aligned with Sidebar (240px) + Gap */
+    width: calc(100% - 300px) !important; /* Fills remaining space dynamically */
+    display: flex !important;
+    justify-content: center !important; /* PERFECTLY CENTERS THE BUTTONS */
+    align-items: center !important;
+    margin: 0 !important;          /* Removed brittle magic numbers */
+    padding: 10px 0;
+    z-index: 2000;
+    background: rgba(248, 250, 252, 0.9); /* Subtle background for readability */
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    transition: all 0.4s ease-in-out; 
+}
+
+/* Adjust pagination when sidebar is collapsed */
+body.sidebar-collapsed .pagination-container {
+    left: 100px !important;        /* Shifts left when sidebar is small */
+    width: calc(100% - 140px) !important;
+    transition: all 0.4s ease-in-out; 
+}
+
+
+
+
+/*------------------------ (WEB)ADD MEMBER BUTTON USER MANAGMENT--------------------*/
+.button-wrapper {
+  position: fixed;            /* CHANGED: Stay steady on scroll */
+  top: 30px;                  /* Fixed top position */
+  right: 20px;                /* Fixed right position */
+  width: 140px;
+  align-items: center;
+  display: flex;              
+  justify-content: center;
+  gap: 8px;
+  padding: 15px 20px;
+  background-color: #2563eb; 
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 110;
+  transition: all 0.6s ease;
+  transition: background-color 0.2s ease;
+  
+}
+
+.button-wrapper:hover {
+  background-color: #1e40af;
+}
+
+.button-wrapper i {
+  font-size: 14px;
+}
+
+.button-wrapper button {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button-wrapper:active {
+  transform: scale(0.98);    /* shrink when click ni siya  */
+}
+
+/*------------------------ (WEB)INSIDE THE ADD MEMBER POPUP (MODAL) DESIGN --------------------*/
+/*------------------------ (WEB)INSIDE THE ADD MEMBER POPUP (MODAL) DESIGN --------------------*/
+.modal-overlay {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.5); 
+    backdrop-filter: blur(8px); 
+    z-index: 5000; 
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    width: 450px;
+    max-width: 95%;
+    /* FIXED: Set a max height so it doesn't go off-screen */
+    max-height: 90vh; 
+    border-radius: 15px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    animation: modalPopUp 0.3s ease-out;
+    /* FIXED: Use flex to keep header/footer static and middle scrollable */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; 
+}
+
+@keyframes modalPopUp {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px 15px 30px; /* Adjusted padding */
+    border-bottom: 1px solid #f1f5f9; /* Optional: adds a separator */
+    flex-shrink: 0; /* Prevents header from shrinking */
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #1e293b;
+    font-weight: 800;
+}
+
+.close-modal {
+    font-size: 20px;
+    color: #64748b;
+    cursor: pointer;
+}
+
+/* FIXED: This is the scrollable section */
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 30px;
+    overflow-y: auto; /* Enables scrolling */
+    flex-grow: 1;    /* Takes up available middle space */
+}
+
+/* Custom Scrollbar for the form */
+.modal-form::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-form::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+.modal-form::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.form-group input, .form-group select {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+}
+
+/* FIXED: Footer stays at the bottom */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 20px 30px 25px 30px;
+    background-color: #f8fafc; /* Subtle background to distinguish from form */
+    border-top: 1px solid #f1f5f9;
+    flex-shrink: 0; /* Prevents footer from shrinking */
+}
+
+.cancel-btn {
+    padding: 10px 20px;
+    background: #f1f5f9;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.save-btn {
+    padding: 10px 20px;
+    background: #2563eb;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background: #1e40af;
+}
+/*------------------------ (WEB)CONFIRMATION DIALOUG DESIGN IN MODAL USER MANAGMENT--------------------*/
+
+.dialog {
+    border: none;
+    border-radius: 16px;
+    padding: 24px;
+    width: 90%;
+    max-width: 420px;
+    background-color: #ffffff;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    
+    /* Animation when opening */
+    animation: dialogAppear 0.3s ease-out;
+}
+
+/* Modern Blurred Backdrop */
+.dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px); /* Glass effect */
+}
+
+/* Paragraph and Icon Styling */
+.dialog p {
+    font-size: 1.2rem;
+    color: #1f2937;
+    margin: 0 0 24px 0;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* The Warning Icon color */
+.dialog p i {
+    margin-bottom: -5  px;
+    color: #eab308; /* Cornerstone Gold */
+    font-size: 3.4rem;
+    padding: 20px 20px;
+    
+}
+
+/* Button Container */
+.dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* Base Button Styling */
+.dialog-buttons button {
+    padding: 10px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+/* Cancel Button (Neutral) */
+#cancelDelete {
+    background-color: #f3f4f6;
+    color: #4b5563;
+}
+
+#cancelDelete:hover {
+    background-color: #e5e7eb;
+    color: #1f2937;
+}
+
+/* Confirm Button (Action) */
+#confirmDelete {
+    background-color:  rgba(15, 23, 42, 0.909); /* Matching your theme gold */
+    color: #ffffff;
+    box-shadow: 0 6px 8px -1px rgba(98, 98, 98, 0.4);
+}
+
+#confirmDelete:hover {
+    background-color: #1f2937;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px -1px rgba(98, 98, 98, 0.4);
+}
+
+#confirmDelete:active {
+    transform: translateY(0);
+}
+
+/* Entrance Animation */
+@keyframes dialogAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+
+/*------------------------ (WEB)SEARCH BAR USER MANAGMENT--------------------*/
+
+.search-wrapper {
+    position: fixed;
+    top: 115px;     
+    left: 260px;     
+    width: calc(100% - 300px); 
+    max-width: 1050px; 
+    
+    padding: 13px 10px;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+    background-color: rgb(136, 0, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.498);
+    transition: all 0.4s ease-in-out; 
+}
+
+.search-wrapper i {
+    position: absolute;
+    left: 28px;
+    color: #94a3b8;
+    font-size: 16px;
+}
+
+.search-wrapper input {
+    width: 300px; /* Width of the search box */
+    padding: 12px 15px 12px 45px; /* Extra left padding for the icon */
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 14px;
+    outline: none;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.search-wrapper input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    width: 350px; /* Grows slightly when clicked */
+}
+
+/*------------------------ (WEB)TABLE DESIGN USER MANAGMENT--------------------*/
+.table-wrapper {
+    position: fixed;
+    min-height: auto;
+    top: 180px;
+    left: 40px; /* Aligned with your sidebar width */
+    width: 97%; /* Adjusts width relative to sidebar */
+    padding: 10px 10px ;
+    display: flex;
+    justify-content: flex-start;
+    background-color: #f8fafc; /*BACKGROND COLOR OF THE TABLE THE CARD BEHIND*/
+    display: block; 
+    box-sizing: border-box;
+    margin-left: 20px;
+    border-radius: 20px;
+    
+    
+}
+
+/* This is the scrollable "window" */
+.user-table-scroll {
+    width: 100%;
+    max-height: calc(100vh - 200px); /* FIXED: Limits height for vertical scrolling on Web */
+    overflow-x: auto; 
+    overflow-y: auto; /* FIXED: Enables up-and-down scrolling */
+    overscroll-behavior: contain;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* --------Make the scrollable transparent and rounded border----------- */
+.user-table-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    
+}
+/* 2. The Track (the area the thumb slides on) */
+.user-table-scroll::-webkit-scrollbar-track {
+    background: transparent; /* Makes the background of the scrollbar path clear */
+}
+/* 3. The Thumb (the draggable part) */
+.user-table-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.279); /* Semi-transparent grey */
+    border-radius: 20px;                 /* Perfectly rounded corners */
+    border: 2px solid transparent;       /* Adds padding around the thumb */
+    background-clip: content-box;        /* Ensures the border stays transparent */
+}
+
+.user-table {
+    width: 100%;
+    min-width: 850px; /* Forces scroll if the browser window gets too small */
+    border-collapse: separate; 
+    border-spacing: 0;
+    font-weight: 600; 
+    background-color: white; 
+    /* overflow: hidden; Removed to ensure scrolling works correctly */
+}
+
+/* Make header sticky so it stays at the top while scrolling down */
+.user-table th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #f8fafc;/* TABLE HEADER DESIGN COLOR */
+    color: #b7afac; 
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 15px 20px;
+    text-align: left;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.36);
+}
+
+.user-table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap; /* Keeps data in one line for a clean scroll */
+}
+
+
+/* Optional: Adding a wrapper style to handle spacing on web */
+.table-wrapper {
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* --------------------------------------Cell Styling (WEB AND MOBILE AFFECTED)----------------------------------- */
+
+.user-info-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+}
+
+.avatar-circle {
+    width: 45px;          /* Match your desired size */
+    height: 45px;         /* Match your desired size */
+    border-radius: 50%;
+    overflow: hidden;     /* This is the most important part! */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0; /* Optional: light gray background */
+}
+
+.user-avatar-img {
+    width: 136%;
+    height: 136%;
+    object-fit: fill;    /* This crops the image to fill the circle without stretching */
+    display: block;
+}
+
+.avatar-circle i {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+
+.user-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 14px;
+}
+
+.user-email {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 400;
+    padding-bottom: 4px;
+}
+
+.user-contact {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 400;
+}
+
+/* --- Role Badges --- */
+.badge-role {
+    background-color: #eff6ff; /* Light blue */
+    color: #2563eb;           /* Darker blue */
+    padding: 4px 4px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-block;
+    text-align: center;
+    min-width: 80px;
+}
+
+/* --- Status Pills --- */
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-pill.active {
+    background-color: #ecfdf5;
+    color: #059669;
+}
+
+.status-pill.inactive {
+    background-color: #f1f5f9;
+    color: #8b7d64;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.active .status-dot {
+    background-color: #0be29a;
+}
+
+.inactive .status-dot {
+    background-color: #94a3b8;
+}
+
+/* --------------------- Action Icons ------------------------------- */
+.action-cell {
+    display: flex;
+    gap: 15px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Ensure all action text matches the table font */
+.action-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.action-container a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.action-text {
+    /* This forces the text to use the table's font and weight */
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+    font-weight: 700; 
+    font-size: 14px;
+    color: #717a88; /* Same color as icons */
+    cursor: pointer;
+}
+
+/* Specific color for Deactivate text */
+.deactivate-icon + .action-text {
+    color: #e70000;
+}
+
+/* Specific color for Activate text */
+.activate-mode + .action-text {
+    color: #10b935;
+}
+
+/* Make icons and text dim on hover/active */
+.action-container a:active {
+    opacity: 0.5;
+}
+
+.edit-icon {
+    color: #717a88;
+}
+
+.reset-icon {
+    color: #717a88;
+}
+
+.deactivate-icon {
+    color: #e70000; 
+}
+
+.edit-icon:active { color: #bec1c6; }
+.reset-icon:active { color: #bec1c6; }
+.deactivate-icon:active { color: #bec1c6; }
+
+.reset-icon, .edit-icon, .deactivate-icon {
+        font-size: 15px !important; /* Significantly larger for mobile */
+        padding: 15px; /* Increases the invisible "hit area" for your thumb */
+}
+
+.action-column a {
+    text-decoration: none !important; /* Removes the underline */
+    color: inherit !important;           /* Prevents the text from turning blue */
+    display: inline-flex;             /* Helps with alignment */
+}
+
+/* Ensure the hover and active states don't bring the underline back */
+.action-column a:hover, 
+.action-column a:active, 
+.action-column a:focus {
+    text-decoration: none !important;
+    color: inherit !important;
+    outline: none;
+}
+/*------------------------ (WEB)ADD MEMBER BUTTON USER MANAGMENT--------------------*/
+.button-wrapper {
+
+  width: 130px;
+  margin-left: 1030px;
+  margin-top: 30px;
+  align-items: center;
+  display: flex;              
+  justify-content: center;
+  gap: 8px;
+  padding: 15px 20px;
+  background-color: #2563eb; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.498);
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+}
+
+.button-wrapper:hover {
+  background-color: #1e40af;
+}
+
+.button-wrapper i {
+  font-size: 14px;
+}
+
+.button-wrapper button {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/*------------------------ (WEB) DROPDOWN & INPUT DESIGN --------------------*/
+
+.input-group select {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    background-color: white;
+    width: 100%;
+    box-sizing: border-box;
+
+    /* REMOVE DEFAULT ARROW */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+
+.form-group input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-group select:focus{
+     border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/*------------------------ (WEB)SEARCH BAR USER MANAGMENT--------------------*/
+
+.search-wrapper {
+    position: fixed;
+    top: 115px;     
+    left: 260px;     
+    width: calc(100% - 300px); 
+    max-width: 925px; 
+    
+    padding: 13px 10px;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+    background-color: rgb(136, 0, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.309);
+    transition: all 0.4s ease-in-out; 
+}
+
+.search-wrapper i {
+    position: absolute;
+    left: 28px;
+    color: #94a3b8;
+    font-size: 16px;
+}
+
+.search-wrapper input {
+    width: 300px; /* Width of the search box */
+    padding: 12px 15px 12px 45px; /* Extra left padding for the icon */
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 14px;
+    outline: none;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.search-wrapper input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    width: 350px; /* Grows slightly when clicked */
+}
+
+/*------------------------ (WEB)TABLE DESIGN USER MANAGMENT--------------------*/
+.table-wrapper {
+    height: auto !important;
+    position: fixed;
+    top: 180px;
+    left: 240px; /* Aligned with your sidebar width */
+    width: calc(100% - 280px); /* Adjusts width relative to sidebar */
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    background-color: #f8fafc; /*BACKGROND COLOR OF THE TABLE THE CARD BEHIND*/
+    transition: all 0.4s ease;
+   
+}
+
+/* This is the scrollable "window" */
+.user-table-scroll {
+    width: 100%;
+    max-height: calc(100vh - 200px); /* FIXED: Limits height for vertical scrolling on Web */
+    overflow-x: auto; 
+    overflow-y: auto; /* FIXED: Enables up-and-down scrolling */
+    overscroll-behavior: contain;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* --------Make the scrollable transparent and rounded border----------- */
+.user-table-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+/* 2. The Track (the area the thumb slides on) */
+.user-table-scroll::-webkit-scrollbar-track {
+    background: transparent; /* Makes the background of the scrollbar path clear */
+}
+/* 3. The Thumb (the draggable part) */
+.user-table-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.279); /* Semi-transparent grey */
+    border-radius: 20px;                 /* Perfectly rounded corners */
+    border: 2px solid transparent;       /* Adds padding around the thumb */
+    background-clip: content-box;        /* Ensures the border stays transparent */
+}
+
+
+
+
+.user-table {
+    width: 100%;
+    min-width: 850px; /* Forces scroll if the browser window gets too small */
+    border-collapse: separate; 
+    border-spacing: 0;
+    font-weight: 600; 
+    background-color: white; 
+    /* overflow: hidden; Removed to ensure scrolling works correctly */
+}
+
+/* Make header sticky so it stays at the top while scrolling down */
+.user-table th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #f8fafc;/* TABLE HEADER DESIGN COLOR */
+    color: #b7afac; 
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 15px 20px;
+    text-align: left;
+}
+
+.user-table td {
+    padding: 15px 5px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap; /* Keeps data in one line for a clean scroll */
+}
+
+
+/* Optional: Adding a wrapper style to handle spacing on web */
+.table-wrapper {
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* --------------------------------------Cell Styling (WEB AND MOBILE AFFECTED)----------------------------------- */
+
+.user-info-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+}
+
+.avatar-circle {
+    width: 40px;
+    height: 40px;
+    background-color: #f1f5f9;
+    border-radius: 50%;
+    /* IMPORTANT: This clips the image edges to keep it a circle */
+    overflow: hidden; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-circle i {
+  color: rgb(59, 45, 45); 
+  font-size: 40px;
+}
+
+.user-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 14px;
+}
+
+.user-email {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 400;
+    padding-bottom: 4px;
+}
+
+.user-contact {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 400;
+}
+
+/* --- Role Badges --- */
+.badge-role {
+    background-color: #eff6ff; /* Light blue */
+    color: #2563eb;           /* Darker blue */
+    padding: 4px 4px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-block;
+    text-align: center;
+    min-width: 80px;
+}
+
+/* --- Status Pills --- */
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-pill.active {
+    background-color: #ecfdf5;
+    color: #059669;
+}
+
+.status-pill.inactive {
+    background-color: #f1f5f9;
+    color: #64748b;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.active .status-dot {
+    background-color: #10b981;
+}
+
+.inactive .status-dot {
+    background-color: #94a3b8;
+}
+
+/* --------------------- Action Icons ------------------------------- */
+.action-cell {
+    display: flex;
+    gap: 15px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+.edit-icon {
+    color: #717a88;
+}
+
+.reset-icon {
+    color: #717a88;
+}
+
+.deactivate-icon {
+    color: #e70000; 
+}
+
+.edit-icon:active { color: #bec1c6; }
+.reset-icon:active { color: #bec1c6; }
+.deactivate-icon:active { color: #bec1c6; }
+
+.reset-icon, .edit-icon, .deactivate-icon {
+        font-size: 15px !important; /* Significantly larger for mobile */
+        padding: 15px; /* Increases the invisible "hit area" for your thumb */
+}
+
+/*===================WEB MODE CONTENT INSIDE THE USERS MANAGMENT====================*/
+
+/*------------------------ (WEB)TEXT UPPER LEFT USER MANAGMENT--------------------*/
+.user-title {
+ position: fixed;            /* CHANGED: Stay steady on scroll */
+ top: 0px;                  /* Set fixed position */
+ left: 238px;                /* Match your margin-left */
+ width: auto;                
+ font-weight: 900;           
+ font-size: 24px;
+ color: #1e293b;
+ z-index: 10;               /* Ensure it stays above other elements */
+     transition: all 0.4s ease-in-out; 
+
+}
+
+.user-title p, .user-saying p {
+    margin: 0;               /* Removes default paragraph spacing */
+}
+
+.user-saying {
+ position: fixed;            /* CHANGED: Stay steady on scroll */
+ top: 63px;                  /* Spaced below title */
+ left: 260px;                /* Match your margin-left */
+ width: 500px;
+ color: #64748b;
+ font-size: 14px;
+ z-index: 110;
+     transition: all 0.4s ease-in-out; 
+
+}
+
+/*------------------------ (WEB)ADD MEMBER BUTTON USER MANAGMENT--------------------*/
+.button-wrapper {
+  position: fixed;            /* CHANGED: Stay steady on scroll */
+  top: 0px;                  /* Fixed top position */
+  right: 20px;                /* Fixed right position */
+  width: 140px;
+  align-items: center;
+  display: flex;              
+  justify-content: center;
+  gap: 8px;
+  padding: 15px 20px;
+  background-color: #2563eb; 
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 110;
+  transition: all 0.6s ease;
+  transition: background-color 0.2s ease;
+}
+
+.button-wrapper:hover {
+  background-color: #1e40af;
+}
+
+.button-wrapper i {
+  font-size: 14px;
+  margin-right: 20px;
+}
+
+.button-wrapper button {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/*------------------------ (WEB)SEARCH BAR USER MANAGMENT--------------------*/
+
+.search-wrapper {
+    position: fixed;
+    top: 120px;     
+    left: 0px;     
+    width: 100%; 
+    margin-left: 260px; 
+    
+    padding: 13px 10px;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+    background-color: #ffffff; /*SEARCHBAR BACKGROUND CARD BACKGROUND COLOR*/
+    border-radius: 10px;
+    box-shadow: 0 0px 1px rgba(0, 0, 0, 0.449);
+    transition: all 0.4s ease-in-out; 
+}
+
+body.sidebar-collapsed .search-wrapper {
+    max-width: 100% !important;
+    margin-left: 20px;
+    padding-left: 110px;
+        transition: all 0.4s ease-in-out; 
+
+}
+body.sidebar-collapsed .search-wrapper input{
+    margin-left: -100px;
+        transition: all 0.4s ease-in-out; 
+
+}
+.search-wrapper i {
+    position: absolute;
+    left: 28px;
+    color: #94a3b8;
+    font-size: 16px;
+                transition: all 0.4s ease-in-out; 
+
+}
+
+.search-wrapper input {
+    width: 300px; /* Width of the search box */
+    padding: 12px 15px 12px 45px; /* Extra left padding for the icon */
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 14px;
+    outline: none;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.search-wrapper input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    width: 350px; /* Grows slightly when clicked */
+}
+
+/*------------------------ (WEB)TABLE DESIGN USER MANAGMENT--------------------*/
+.table-wrapper {
+    position: fixed;
+    min-height: auto;
+    top: 190px;
+    left: 240px; /* Aligned with your sidebar width */
+    width: calc(100% - 280px); /* Adjusts width relative to sidebar */
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    background-color: yellow;
+   
+}
+
+/* This is the scrollable "window" */
+.user-table-scroll {
+    width: 100%;
+    max-height: calc(100vh - 200px); /* FIXED: Limits height for vertical scrolling on Web */
+    overflow-x: auto; 
+    overflow-y: auto; /* FIXED: Enables up-and-down scrolling */
+    overscroll-behavior: contain;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* --------Make the scrollable transparent and rounded border----------- */
+.user-table-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+/* 2. The Track (the area the thumb slides on) */
+.user-table-scroll::-webkit-scrollbar-track {
+    background: transparent; /* Makes the background of the scrollbar path clear */
+}
+/* 3. The Thumb (the draggable part) */
+.user-table-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.279); /* Semi-transparent grey */
+    border-radius: 20px;                 /* Perfectly rounded corners */
+    border: 2px solid transparent;       /* Adds padding around the thumb */
+    background-clip: content-box;        /* Ensures the border stays transparent */
+}
+
+.user-table {
+    width: 100%;
+    min-width: 850px; /* Forces scroll if the browser window gets too small */
+    border-collapse: separate; 
+    border-spacing: 0;
+    font-weight: 600; 
+    background-color: white; 
+}
+
+/* Make header sticky so it stays at the top while scrolling down */
+.user-table th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #f8fafc;/* TABLE HEADER DESIGN COLOR */
+    color: #b7afac; 
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 15px 20px;
+    text-align: left;
+}
+
+.user-table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap; /* Keeps data in one line for a clean scroll */
+}
+
+
+/* Optional: Adding a wrapper style to handle spacing on web */
+.table-wrapper {
+    padding: 0px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* --------------------------------------Cell Styling (WEB AND MOBILE AFFECTED)----------------------------------- */
+
+.user-info-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    
+}
+
+.avatar-circle {
+    width: 40px;
+    height: 40px;
+    background-color: #f1f5f9;
+    border-radius: 50%;
+    /* IMPORTANT: This clips the image edges to keep it a circle */
+    overflow: hidden; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid;
+}
+
+.avatar-circle i {
+  color: rgb(59, 45, 45); 
+  font-size: 37px;
+  margin-bottom: -5px
+}
+
+.user-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 14px;
+}
+
+.user-email {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 400;
+    padding-bottom: 4px;
+}
+
+.user-contact {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 400;
+}
+
+/* --- Role Badges --- */
+.badge-role {
+    background-color: #eff6ff; /* Light blue */
+    color: #2563eb;           /* Darker blue */
+    padding: 4px 4px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    display: inline-block;
+    text-align: center;
+    min-width: 80px;
+    
+}
+
+/* --- Status Pills --- */
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.status-pill.active {
+    background-color: #ecfdf5;
+    color: #059669;
+}
+
+.status-pill.inactive {
+    background-color: #f1f5f9;
+    color: #64748b;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.active .status-dot {
+    background-color: #10b981;
+}
+
+.inactive .status-dot {
+    background-color: #94a3b8;
+}
+
+/* --------------------- Action Icons ------------------------------- */
+.action-cell {
+    display: flex;
+    gap: 15px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Base Colors */
+.edit-icon {
+    color: #717a88;
+}
+
+.reset-icon {
+    color: #717a88;
+}
+
+.deactivate-icon {
+    color: #e70000; 
+}
+
+/* Active States (Feedback when clicked) */
+.edit-icon:active, 
+.reset-icon:active, 
+.deactivate-icon:active { 
+    color: #bec1c6 !important; 
+    transform: scale(0.9); /* Optional: slight shrink for better "active" feel */
+    cursor: pointer;
+}
+
+/* --- RESTORING YOUR ORIGINAL DESIGN --- */
+.pg-btn, .pagination-container button {
+    padding: 10px 18px;
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    color: #1e293b;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin: 0 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.pg-btn:hover, .pagination-container button:hover {
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+/* Your Original Midnight Navy Active State */
+.pg-btn.active, .pagination-container button.active {
+    background-color: #0f172a; /* Midnight Navy */
+    color: white;
+    border-color: #0f172a;
+}
+
+.pg-btn:disabled, .pagination-container button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+body.sidebar-collapsed .pagination-container {
+    left: -5px !important;
+    width: calc(100% - 40px) !important;
+    transition: all 0.4s ease-in-out; 
+}
+
+/*========================================MOBILE MODE==========================================*/
+@media (max-width: 768px) {
+    
+   html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    
+    
+        .pagination-container {
+            position: fixed !important;
+            bottom: 65px !important;   /* Lifted above mobile nav */
+            left: 0 !important;
+            width: 100% !important;
+            margin: 0 !important;
+            background: white !important;
+            border-radius: 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            padding: 10px 0 !important;
+        }
+
+
+        
+
+      
+
+        /* Ensure the table wrapper doesn't cover the very bottom where pagination sits */
+        .table-wrapper {
+            bottom: 80px !important; /* Lift the table slightly to make room for pagination */
+            max-height: 530px !important; /* Limit height to ensure pagination is visible */
+        }
+
+        .user-title {
+            position: fixed !important;  /* Steady on scroll */
+            margin-top: -18px;  /* ---move bottom-----*/
+            top: 70px !important;
+            left: -11px !important;
+            height: 50px;
+            width: 80%;
+            padding: 0 0;
+            margin-left: 0 !important;
+            font-size: 20px !important;
+            z-index: 1000 !important;   /* FIXED: High z-index to stay in front */
+        }
+
+        .user-saying {
+            position: fixed !important;  /* Steady on scroll */
+            margin-top: 5px;
+            top: 100px !important;
+            left: 10px !important;
+            margin-left: 0 !important;
+            width: 90% !important;
+            font-size: 13px !important;
+            z-index: 1000 !important;   /* FIXED: High z-index to stay in front */
+        }
+
+        /*------------------------ (MOBILE)ADD MEMBER BUTTON USER MANAGMENT--------------------*/
+        .button-wrapper {
+            position: fixed !important;  /* Steady on scroll */
+            top: 100px !important;       /* ---move bottom-----*/
+            left: 5px !important;
+            right: 5px !important;
+            width: auto !important;           
+            min-width: 100px;      
+            margin-left: 0px;
+            padding: 12px 20px;
+            z-index: 1001 !important;    /* FIXED: Highest z-index to be visible over yellow table */
+            display: block !important;   /* CHANGED: Not auto flex */
+            text-align: center;          /* Centers the icon and text inside block */
+            transition: all 0.6s ease;
+            
+        }
+
+
+
+        .button-wrapper:hover {
+            background-color: #1e40af;
+            
+        }
+
+        .button-wrapper i {
+            font-size: 20px;
+        }
+
+        .button-wrapper button {
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            
+        }
+
+        /*------------------------ (MOBILE)ADD MEMBER MODAL ROLE PART MANAGMENT--------------------*/
+        .modal-form input,
+        .modal-form select,
+        .modal-form textarea {
+            font-size: 16px !important;  /* Minimum required to avoid zoom on iOS */
+        }
+        .modal-footer button {
+            height: 45px !important; 
+            font-size: 15px !important;
+            margin-left: 0px !important;
+            
+        }
+
+        
+
+        .modal-footer .cancel-btn{
+            width: 157px !important;
+            padding: 16px 43px !important;
+        }
+
+        .save-btn{
+            width: 157px !important;
+            padding: 16px -13px !important;
+        }
+
+        .form-group input, .form-group select {
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            outline: none;
+            font-family: inherit;
+            font-size: 14px; /* Standardized font size */
+            width: 100%;    /* Standardized width */
+            box-sizing: border-box; /* Ensures padding doesn't break the width */
+
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        
+
+        /*------------------------ (MOBILE) MODAL SELECT GENDER AND ROLE --------------------*/
+        
+        .modal-form .form-group select {
+            height: 48px !important; /* Larger touch area for mobile */
+            font-size: 16px !important; /* Prevents auto-zoom on iPhone */
+            color: #1e293b !important;
+            background-color: #f8fafc !important; /* Light backgroxund for mobile inputs */
+            
+            /* Ensure appearance is still none on mobile */
+            -webkit-appearance: none !important;
+            appearance: none !important;
+        }
+
+        /*------------------------ (MOBILE)CONFIRMATION DIALOUG DESIGN IN MODAL USER MANAGMENT--------------------*/
+        .dialog {
+            padding: 20px;
+            border-radius: 20px 20px 20px 20px; /* Rounded look for mobile */
+        }
+
+        .dialog p {
+            font-size: 1rem;
+            flex-direction: column; /* Icon above text on very small screens */
+            text-align: center;
+        }
+
+        .dialog-buttons {
+            flex-direction: column-reverse; /* Stack buttons: Cancel on bottom */
+        }
+
+        .dialog-buttons button {
+            width: 100%; /* Full width buttons for easier tapping */
+            padding: 14px; /* Larger hit area */
+        }
+
+        /*-----------------------SEARCH BAR MOBILE MODE--------------------------------*/
+        .search-wrapper {
+            position: fixed !important;     
+            top: 180px !important;       /* ---move bottom-----*/
+            left: -2px !important;
+            right: 5px !important;
+                    
+            min-width: 95%;      
+            margin-left: 0px;
+
+            padding: 13px 10px;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            border-radius: 0px;
+
+        }
+
+
+        .search-wrapper input {
+            width: 100% !important;
+        }
+
+        .search-wrapper i {
+            left: 27px !important;/* Adjusts icon position for centered mobile input */
+        }
+
+        /* Adjust table top so it doesn't overlap the new search bar position */
+        .table-wrapper {
+            top: 210px !important; 
+        }
+        /*--------------------------------TABLE MOBILE MODE---------------------------------*/
+        .table-wrapper {
+            top: 250px !important;     /*--------------move to the bottom-------*/  
+            bottom: 75px !important;   
+            left: -10px !important;
+            right: 0 !important;
+            width: auto !important;
+            
+            /* CHANGE THIS LINE */
+            height: auto !important; 
+            border-radius: 10px;
+            
+            padding: 8px 8px !important;
+            margin: 0px !important;      
+            box-sizing: border-box;
+            z-index: 500;
+            display: block !important; 
+            background-color: #f8fafc; /*MOBILE TABLE MODE BACKGROUND CARD BACKGROUND COLOR*/
+        
+        }
+
+        .user-table-scroll {
+            width: 100%;
+            height: 100% !important;             
+            overflow-y: auto;          
+            overflow-x: auto;          
+            overscroll-behavior: none !important; 
+            -webkit-overflow-scrolling: touch; 
+            border-radius: 8px;
+        }
+
+
+/*------------------------------(MOBILE) ACTION ICONS DESIGNS FIXED--------------------------*/
+    .action-column .action-container {
+        display: flex !important; 
+        gap: 35px !important; /* This controls the distance between the buttons */
+        align-items: center !important;
+        justify-content: flex-start !important;
+
+    }
+
+    
+
+    .reset-icon, .edit-icon, .deactivate-icon {
+        font-size: 20px !important; 
+        padding: 10px 0 !important; 
+        display: flex !important; 
+        align-items: center !important;
+        gap: 9px !important; /* Space between icon and text */
+        width: auto !important; /* FIXED: Removed 60px which was squishing them */
+        white-space: nowrap !important; /* Prevents text from wrapping */
+    }
+
+    /* Adjusting the text inside the icons for better alignment */
+    .reset-icon span, .edit-icon span, .deactivate-icon span {
+        font-size: 14px !important;
+        display: inline-block !important;
+    }
+
+        
+}

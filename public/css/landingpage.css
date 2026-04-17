@@ -1,0 +1,190 @@
+:root {
+    --navy: #0f172a;
+    --gold: #d4af37;
+    --white: #f8fafc;
+    --text-muted: #64748b;
+    --light-navy: #1e293b;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--white);
+    color: var(--navy);
+    overflow-x: hidden;
+}
+
+/* Navigation */
+nav {
+    background: var(--navy);
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.mobile-menu-toggle {
+    display: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.hero .btn-portal {
+    display: none;
+}
+
+.logo-area { display: flex; align-items: center; gap: 15px; }
+.logo-img { width: 45px; filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5)); }
+.logo-text { color: white; font-weight: 800; letter-spacing: 1px; margin: 0; font-size: 1.2rem; }
+.nav-links a { color: white; text-decoration: none; margin-left: 25px; font-size: 14px; font-weight: 600; transition: 0.3s; }
+.nav-links a:hover { color: var(--gold); }
+.btn-portal { border: 2px solid var(--gold); padding: 8px 20px; border-radius: 50px; color: var(--gold) !important; }
+.btn-portal:hover { background: var(--gold); color: var(--navy) !important; }
+
+/* Hero Section */
+.hero {
+    height: 75vh;
+    background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.7)), url('/images/church1.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 0 20px;
+}
+
+.hero-content { max-width: 800px; }
+.mission-tag { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; font-weight: 600; font-size: 14px; display: block; margin-bottom: 20px; }
+.hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 800; margin: 0 0 20px 0; line-height: 1.1; }
+.hero p { font-size: 1.2rem; font-style: italic; margin-bottom: 30px; color: #e2e8f0; }
+.btn-main { background: var(--gold); color: var(--navy); padding: 15px 35px; border-radius: 8px; text-decoration: none; font-weight: 800; transition: 0.3s; display: inline-block; }
+.btn-main:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+/* Section Universal Styles */
+section { padding: 80px 10%; }
+.section-header { text-align: center; margin-bottom: 50px; }
+.section-header h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; }
+.section-header .divider { width: 60px; height: 4px; background: var(--gold); margin: 0 auto; border-radius: 2px; }
+
+/* Section 1: Features */
+.features { background: white; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
+.feature-card { text-align: center; }
+.feature-card i { font-size: 2.5rem; color: var(--gold); margin-bottom: 20px; }
+.feature-card h3 { font-weight: 800; margin-bottom: 10px; }
+.feature-card p { color: var(--text-muted); line-height: 1.6; }
+
+/* Section 2: About Our Mission */
+.about-mission { background: var(--white); display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+.about-text { flex: 1; min-width: 300px; }
+.about-text h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 20px; }
+.about-text p { color: var(--text-muted); line-height: 1.8; font-size: 1.05rem; }
+.about-image { flex: 1; min-width: 300px; border-radius: 20px; overflow: hidden; box-shadow: 20px 20px 0px var(--gold); }
+.about-image img { width: 100%; display: block; }
+
+/* --- IMAGE HOVER EFFECT --- */
+.about-image img {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s;
+}
+
+/* Zoom in slightly on hover */
+.about-image:hover img {
+    transform: scale(1.08);
+}
+
+/* --- LIGHTBOX (POPUP) STYLES --- */
+.lightbox-overlay {
+    display: none; 
+    position: fixed;
+    z-index: 9999; /* Above everything */
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.95); /* Deep Navy transparent */
+    backdrop-filter: blur(10px);
+}
+
+.lightbox-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 900px;
+    border: 3px solid var(--gold);
+    border-radius: 15px;
+    animation: zoomIn 0.4s;
+}
+
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: var(--gold);
+    padding: 15px 0;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.lightbox-close:hover {
+    color: var(--gold);
+}
+
+@keyframes zoomIn {
+    from {transform: scale(0.7); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+}
+
+/* Section 3: Connect & Grow */
+.connect { background: white; text-align: center; }
+.connect-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 40px; }
+.connect-card { background: var(--white); padding: 30px; border-radius: 15px; border: 1px solid #e2e8f0; transition: 0.3s; }
+.connect-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+.connect-card h4 { font-weight: 800; margin: 10px 0; color: var(--navy); }
+.connect-card p { font-size: 0.9rem; color: var(--text-muted); }
+
+/* Footer */
+footer { background: var(--navy); color: white; text-align: center; padding: 40px 20px; border-top: 3px solid var(--gold); }
+.footer-logo { width: 50px; margin-bottom: 15px; }
+
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    section { padding: 60px 5%; }
+    .about-mission { flex-direction: column-reverse; text-align: center; }
+    .about-image { box-shadow: 10px 10px 0px var(--gold); }
+    .lightbox-content { width: 95%; }
+    .hero .btn-portal {
+        display: inline-block; /* or 'block' */
+        width: 100%;
+        max-width: 200px;
+        border-radius: 10px;
+        text-align: center;
+    }
+    
+    .hero-btns {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+}

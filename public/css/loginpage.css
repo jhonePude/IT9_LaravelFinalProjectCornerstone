@@ -1,0 +1,553 @@
+
+body {
+    touch-action: manipulation;
+    font-family: 'Poppins','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+
+    
+    background-image: linear-gradient(rgba(21, 20, 20, 0.6), rgba(0, 0, 0, 0)), url('../images/church1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+     -webkit-appearance: none !important;
+        appearance: none !important;
+
+}
+
+
+
+/* The Main Card */
+.login-card {
+    background-color: white;
+    display: flex;
+    width: 100%;
+    max-width: 950px;
+    min-height: 550px;
+    border-radius: 40px; /* Extra rounded corners like your image */
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+
+    
+}
+
+/* --- THE LOGO IS HERE --- */
+.image-side {
+    flex: 1.2;
+    background: radial-gradient(circle at center, #2c3e50 0%, #0f172a 100%);
+    display: flex;
+    flex-direction: column; /* Stacks text on top of logo */
+    justify-content: center;
+    align-items: center;
+    padding: 50px 40px;
+    position: relative;
+    overflow: hidden;
+    border-right: 4px solid #d4af37; 
+    text-align: center;
+}
+
+/* 1. Subtle 'Divine Light' Glow behind the logo */
+.image-side::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    /* Soft golden aura that sits behind the logo */
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+    z-index: 1;
+}
+
+/* 2. Abstract Geometric Detail (Adds professional depth) */
+.image-side::after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    /* Very faint lines to give it a modern architectural church feel */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.5;
+    z-index: 0;
+}
+
+/* 3. The Logo - Professional Treatment */
+.main-logo {
+    width: 70%; 
+    max-width: 400px;
+    height: auto;
+    z-index: 2;
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.5));
+    
+    /* ADD THIS LINE TO START THE ANIMATION AGAIN */
+    animation: floatingLogo 5s ease-in-out infinite;
+}
+
+/* 4. Smooth Floating Animation */
+@keyframes floatingLogo {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+}
+
+
+
+/*LEFT SIDE TEXTS*/
+/* Wrapper for the text */
+.side-brand-content {
+    z-index: 5;
+    margin-bottom: 20px;
+    animation: fadeInDown 1.5s ease;
+}
+
+.mission-tag {
+    color: #d4af37;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 4px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+    opacity: 0.9;
+}
+
+.side-title {
+    color: #ffffff;
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: 3px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.bible-verse {
+    color: rgba(255, 255, 255, 0.85);
+    font-style: italic;
+    font-size: 1.05rem;
+    max-width: 320px;
+    line-height: 1.6;
+    margin: 15px auto;
+    font-family: 'serif'; /* Gives it a traditional bible feel */
+}
+
+.verse-ref {
+    display: block;
+    font-style: normal;
+    font-size: 0.85rem;
+    color: #d4af37;
+    margin-top: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.gold-line {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #d4af37, transparent);
+    margin: 20px auto;
+}
+
+
+
+
+/* Form RIGHT Side Styling */
+.form-side {
+    flex: 1;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ffffff;
+}
+
+.header-text {
+    position: relative; /* So we can position the dots and badge */
+    margin-bottom: 40px;
+}
+
+/* 1. Add a colorful badge */
+.store-badge {
+    background-color: #ffcc33; /* Yellow from your logo */
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+
+.header-text h2 {
+    margin: 0;
+    font-size: 34px;
+    color: #0f172a;
+    line-height: 1.1;
+    font-weight: 800;
+    
+}
+
+.accent-text {
+    color: #b4943a;
+    font-weight: 800;
+}
+
+
+/* Small yellow accent line in the slogan on the right */
+.subtitle {
+    color: #888;
+    margin-top: 12px;
+    font-size: 15px;
+    border-left: 3px solid #ffcc33; 
+    padding-left: 10px;
+    font-weight: 400;
+}
+
+h2 { margin: 0; 
+    font-size: 30px; 
+    color: #0f1f32; 
+    line-height: 1.1; } 
+
+/*__________________________________________________________________________________________________________________________*/
+
+.divider-line {
+    margin: 25px 0;
+    border: 0;
+    border-top: 1.5px solid #a49c9c;
+}
+
+/* Inputs */
+.input-group { margin-bottom: 20px; }
+.input-group label { display:block; margin-bottom: 8px; font-weight: 500; font-size: 14px; }
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #f1f3f6;
+    border: none;
+    border-radius: 12px;
+    box-sizing: border-box;
+     font-size: 16px;
+}
+
+/* Container must be relative to anchor the icon */
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.password-container input {
+    width: 100%;
+    padding: 14px;
+    padding-right: 45px; /* Extra space so text doesn't go under the eye */
+    background-color: #f1f3f6;
+    border: none;
+    border-radius: 12px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* 1. FORCE HIDE DEFAULT BROWSER ICONS */
+/* Chrome, Safari, Edge, Brave */
+input::-webkit-reveal,
+input::-webkit-clear-button {
+    display: none !important;
+    width: 0;
+    height: 0;
+}
+
+/* Old Edge / IE */
+input::-ms-reveal,
+input::-ms-clear {
+    display: none !important;
+}
+
+/* 2. STYLE YOUR CUSTOM EYE ICON */
+#togglePassword {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%); /* Perfectly centers vertically */
+    cursor: pointer;
+    color: #64748b; /* Subtle grey */
+    font-size: 18px;
+    z-index: 10;
+    padding: 5px; /* Increases clickable area */
+    transition: color 0.2s ease;
+}
+
+/* This stops the browser from changing the background color on localhost */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px #f1f3f6 inset !important;
+    -webkit-text-fill-color: #333 !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Position the eye icon */
+#togglePassword {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+    color: #282626;
+    font-size: 18px;
+    transition: color 0.2s ease;
+}
+
+#togglePassword:active {
+    color: #e91e63; /* Changes color when you hover over it */
+}
+
+
+/* This hides the default browser eye icon in Edge, Chrome, and Safari (katong mu popup na mata automatic)*/
+input::-webkit-reveal,
+input::-webkit-clear-button {
+    display: none !important;
+}
+
+/* This hides the default browser eye icon in older Internet Explorer/Edge ((katong mu popup na mata automatic))*/
+input::-ms-reveal,
+input::-ms-clear {
+    display: none !important;
+}
+
+/* Checkbox */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.forgot-link { text-decoration: none; color: #007bff; }
+
+/* Buttons */
+.btn-signin {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-google {
+    width: 100%;
+    padding: 12px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.btn-google img { width: 20px; }
+
+.signup-text { text-align: center; margin-top: 25px; font-size: 14px; }
+.signup-text a { color: #007bff; text-decoration: none; font-weight: bold; }
+
+/* Puzzle Overlay (Dark background) */
+.puzzle-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+/* Puzzle Card */
+.puzzle-card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.puzzle-header h4 { margin: 0; color: #333; }
+.puzzle-header p { font-size: 14px; color: #666; margin-bottom: 20px; }
+
+/* 3x3 Grid */
+.puzzle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.puzzle-img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, border 0.2s;
+    border: 3px solid transparent;
+}
+
+/* Selected state */
+.puzzle-img.selected {
+    border-color: #007bff;
+    transform: scale(0.95);
+    opacity: 0.8;
+}
+
+.puzzle-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-secondary { background: #ccc; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
+.btn-primary { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
+
+
+
+
+
+/*__________________________________________________________________________________________________________________________*/
+/* --- DYNAMIC RESPONSIVENESS (Mobile Adjustment) --- */
+@media (max-width: 700px) {
+    body {
+        /* 1. Change auto to cover so it fills the screen */
+        background-size: cover; 
+        
+        /* 2. Change fixed to scroll (or remove it) to fix mobile glitches */
+        background-attachment: scroll; 
+
+        /* 3. Ensure the background covers the full height of the moving page */
+        background-position: center center;
+        min-height: 100vh;
+        height: auto; 
+        display: flex;
+         touch-action: manipulation;
+    }
+    
+    .login-card {
+        flex-direction: column; /* Stacks vertically */
+        max-width: 400px;
+    }
+
+    .image-side {
+        padding: 40px 20px;
+        min-height: 200px;
+    }
+
+    .form-side {
+        padding: 40px 30px;
+    }
+
+     .side-title {
+        font-size: 2rem;
+    }
+    .bible-verse {
+        font-size: 0.9rem;
+        max-width: 280px;
+    }
+    .main-logo {
+        width: 100%;
+         max-width: 280px; /* Shrinks logo for mobile */
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*================ANYTHIN U TOUCH HERE WILL ONLLY AFFECT MOBILE LOADING EFFECT|| MOBILE AND WEB LOADING SCREEN ===================================== */
+/*================ANYTHIN U TOUCH HERE WILL ONLLY AFFECT MOBILE LOADING EFFECT|| MOBILE AND WEB LOADING SCREEN ===================================== */
+
+@keyframes pulse-blue {
+        0% { box-shadow: 0 0 0 0 rgba(0, 85, 164, 0.7); }
+        70% { box-shadow: 0 0 0 30px rgba(0, 85, 164, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(0, 85, 164, 0); }
+    }
+
+    @media (max-width: 500px) {
+
+        #loader-overlay {
+        /* FIXED: Changed from #ffffff to transparent glass */
+        background: rgba(255, 255, 255, 0.6) !important;   
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(15px) !important;
+        display: none; 
+        justify-content: center;
+        align-items: center;
+    }
+
+    #loader-card {
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        width: 100% !important;
+        padding: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin-top: -50px !important;
+    }
+
+    #visual-box {
+        background: transparent !important;
+        width: 100% !important;
+        height: 100px !important;
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+    }
+
+    #success-icon {
+        width: 70px !important;
+        height: 70px !important;
+        line-height: 70px !important;
+        font-size: 40px !important;
+        margin-bottom: 20px !important;
+    }
+
+    #loader-text {
+        font-size: 1.4rem !important;
+        text-align: center !important;
+        color: #333 !important; /* Ensure it's readable on transparent bg */
+    }
+
+    #loader-sub {
+        font-size: 1rem !important;
+        text-align: center !important;
+    }
+
+}

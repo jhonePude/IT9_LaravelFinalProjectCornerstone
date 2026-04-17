@@ -1,0 +1,413 @@
+body {
+    font-family: 'Poppins', sans-serif; 
+    background-color: #f0f2f5;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+
+    background-image: linear-gradient(rgba(21, 20, 20, 0.6), rgba(0, 0, 0, 0)), url('../images/church1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.signup-card {
+    background-color: white;
+    display: flex;
+    width: 100%;
+    max-width: 950px;
+    min-height: 650px; 
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+/* --- LEFT SIDE (BRANDING) --- */
+.image-side {
+    flex: 1.2;
+    background: radial-gradient(circle at center, #2c3e50 0%, #0f172a 100%);
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    padding: 50px 40px;
+    position: relative;
+    border-right: 4px solid #d4af37; 
+    text-align: center;
+    overflow: hidden; /* Keeps decorations inside */
+}
+
+/* 1. Subtle 'Divine Light' Glow */
+.image-side::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+    z-index: 1;
+    pointer-events: none; /* IGNORE TOUCH EVENTS */
+}
+
+/* 2. Abstract Geometric Detail */
+.image-side::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 200%;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none; /* IGNORE TOUCH EVENTS */
+}
+
+.main-logo {
+    width: 65%;
+    max-width: 350px;
+    z-index: 2;
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.5));
+    animation: floatingLogo 5s ease-in-out infinite;
+}
+
+@keyframes floatingLogo {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+}
+
+.side-brand-content {
+    z-index: 5;
+    margin-bottom: 20px;
+    animation: fadeInDown 1.5s ease;
+}
+
+.mission-tag {
+    color: #d4af37;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 4px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.side-title {
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: 3px;
+}
+
+.bible-verse {
+    color: rgba(255, 255, 255, 0.85);
+    font-style: italic;
+    font-size: 1rem;
+    max-width: 320px;
+    line-height: 1.6;
+    margin: 15px auto;
+    font-family: 'Georgia', serif;
+}
+
+.verse-ref {
+    display: block;
+    font-size: 0.8rem;
+    color: #d4af37;
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.gold-line {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #d4af37, transparent);
+    margin: 20px auto;
+}
+
+/* ---------------------------- RIGHT SIDE (FORM) ---------------------------------- */
+.form-side {
+    flex: 1;
+    padding: 40px 60px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: white;
+    position: relative;
+    z-index: 10; 
+}
+
+.header-text {
+    margin-bottom: 25px; 
+    position: relative;
+    z-index: 11;
+}
+
+.church-badge {
+    background-color: #e7b614 ;
+    color: #64748b;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.header-text h2 {
+    margin: 0;
+    font-size: 32px;
+    color: #0f1f32; 
+    line-height: 1.1;
+    font-weight: 800;
+}
+
+.accent-text {
+    color: #b4943a ;
+    font-weight: 800;
+}
+
+.subtitle {
+    color: #888;
+    margin-top: 8px;
+    font-size: 14px;
+    border-left: 3px solid #ffcc33; 
+    padding-left: 10px;
+}
+
+/* --- INPUTS --- */
+.input-group { 
+    margin-bottom: 15px; 
+    position: relative; /* Forces priority */
+    z-index: 20;        /* Sits above any background bleed */
+} 
+
+.input-group label { 
+    display: block; 
+    margin-bottom: 5px; 
+    font-weight: 600; 
+    font-size: 13px; 
+}
+
+/* Container must be relative so the icon can be absolute inside it */
+/* Container */
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    z-index: 30; /* Higher than the global input z-index */
+}
+
+.password-container input {
+    width: 100%;
+    padding: 12px;
+    padding-right: 45px !important; /* Force space for the eye */
+    background-color: #f1f3f6;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    z-index: 1; /* Keep the input layer lower */
+}
+
+/* THE FIX: The Eye Icon */
+#togglePassword {
+    position: absolute;
+    right: 15px; 
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #64748b;
+    font-size: 18px;
+    
+    /* Crucial Fixes */
+    z-index: 100 !important; /* Must be higher than 21 to be visible */
+    display: none;           /* JS will handle this */
+    pointer-events: auto;    /* Ensure it can be clicked */
+}
+
+/* Disable the default Microsoft Edge/IE password eye icon */
+input::-ms-reveal,
+input::-ms-clear {
+    display: none !important;
+    width: 0;
+    height: 0;
+}
+
+/* For some versions of Chrome/Safari that might show a clear button */
+input::-webkit-contacts-auto-fill-button,
+input::-webkit-credentials-auto-fill-button {
+    visibility: hidden;
+    display: none !important;
+    pointer-events: none;
+    position: absolute; 
+    right: 0;
+}
+
+
+input[type="text"], input[type="password"], select {
+    width: 100%;
+    padding: 12px;
+    background-color: #f1f3f6;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    z-index: 21;
+}
+
+input:focus {
+    outline: none;
+    border-color: #1d5da6;
+    background-color: #fff;
+}
+input:focus, select:focus {
+    outline: none;
+    border-color: #1d5da6;
+    background-color: #fff;
+}
+
+
+/* --- BUTTONS --- */
+.btn-signin {
+    width: 100%;
+    padding: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    z-index: 20;
+}
+
+.signup-text { text-align: center; margin-top: 20px; font-size: 14px; position: relative; z-index: 20; }
+.signup-text a { color: #007bff; text-decoration: none; font-weight: 800; }
+
+/* ---------------------------- MOBILE RESPONSIVENESS --------------------------- */
+@media (max-width: 850px) {
+    .signup-card {
+        flex-direction: column;
+        max-width: 450px;
+        min-height: auto;
+    }
+    .image-side { 
+        min-height: 250px; 
+        padding: 30px 20px; 
+        border-right: none;
+        border-bottom: 4px solid #d4af37;
+    }
+    .main-logo { max-width: 180px; }
+    .form-side { padding: 30px; }
+    .header-text h2 { font-size: 26px; }
+}
+
+/* --- (MOBILE)INPUTS AND DROPDOWN --- */
+input[type="text"], input[type="password"], select {
+    width: 100%;
+    padding: 12px;
+    background-color: #f1f3f6;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    z-index: 21;
+    font-size: 14px; /* Prevents auto-zoom on iOS */
+    
+    
+    /* FIX FOR MOBILE DESIGN */
+    -webkit-appearance: none; /* Removes default iOS styling */
+    -moz-appearance: none;    /* Removes default Firefox styling */
+    appearance: none;         /* Removes default styling */
+}
+
+
+
+/* ---------------------------- LOADING SCREEN STYLES --------------------------- */
+@keyframes pulse-blue {
+    0% { box-shadow: 0 0 0 0 rgba(0, 85, 164, 0.7); }
+    70% { box-shadow: 0 0 0 30px rgba(0, 85, 164, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 85, 164, 0); }
+}
+
+@media (max-width: 500px) {
+    body {
+        /* 1. Change auto to cover so it fills the screen */
+        background-size: cover; 
+        
+        /* 2. Change fixed to scroll (or remove it) to fix mobile glitches */
+        background-attachment: scroll; 
+
+        /* 3. Ensure the background covers the full height of the moving page */
+        background-position: center center;
+        min-height: 100vh;
+        height: auto; 
+        display: flex;
+    }
+    
+    #loader-overlay {
+        background: rgba(255, 255, 255, 0.6) !important;   
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(15px) !important;
+        display: none; 
+        justify-content: center;
+        align-items: center;
+    }
+
+    #loader-card {
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        width: 100% !important;
+        padding: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin-top: -50px !important;
+    }
+
+    #visual-box {
+        background: transparent !important;
+        width: 100% !important;
+        height: 100px !important;
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+    }
+
+    #success-icon {
+        width: 70px !important;
+        height: 70px !important;
+        line-height: 70px !important;
+        font-size: 40px !important;
+        margin-bottom: 20px !important;
+    }
+
+    #loader-text {
+        font-size: 1.4rem !important;
+        text-align: center !important;
+        color: #333 !important; 
+    }
+
+    #loader-sub {
+        font-size: 1rem !important;
+        text-align: center !important;
+    }
+
+    .form-side { padding: 40px 25px; }
+    .side-title { font-size: 1.8rem; }
+    .bible-verse { font-size: 0.85rem; max-width: 260px; }
+    .main-logo { width: 90%; max-width: 220px; }
+}

@@ -1,0 +1,1245 @@
+/* SKELETON BASE */
+.skeleton {
+    background: #eee;
+    background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+    border-radius: 5px;
+    background-size: 200% 100%;
+    animation: 1.5s shine linear infinite;
+}
+
+@keyframes shine {
+    to {
+        background-position-x: -200%;
+    }
+}
+
+/* Hide content initially */
+#main-dashboard-content {
+    display: none;
+}
+
+/* Skeleton Card specific heights */
+.skeleton-title { height: 30px; width: 60%; margin-bottom: 10px; }
+.skeleton-text { height: 15px; width: 80%; margin-bottom: 20px; }
+.skeleton-card { height: 140px; width: 100%; border-radius: 12px; }
+.skeleton-chart { height: 350px; width: 100%; border-radius: 12px; margin-top: 20px; }
+
+
+
+
+
+
+
+
+
+
+
+
+/*=========================CONTENT INSIDE DASHBOARD(WEB)===================================*/
+.content-container {
+    background-color:rgb(15, 253, 15);
+    position: fixed;
+    height: 420px;
+    width: 370px;
+    left: 255px;   /* increase this to move right */
+    top: 135px;
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-top: -15px;
+    
+    border-radius: 10px 10px 10px 10px;
+    padding: 10px 300px 10px 300px;
+    transform: translateX(-0%);
+
+    /* ADDED: Matching transition to the sidebar for a synchronized slide */
+        transition: all 0.4s ease-in-out; 
+
+    z-index: 1; /* Keep content below sidebar */
+}
+/*================= GLOBAL PAGINATION STYLING (ALWAYS VISIBLE) =============================*/
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 40px; /* Pushes it away from the table/cards */
+    margin-bottom: 50px;
+    padding: 20px;
+    width: auto;
+    position: relative;
+    clear: both; /* Ensures it sits below floating elements */
+    z-index: 50;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+
+/* Adjust for Sidebar Layout */
+.pagination-container {
+    margin-left: 260px; /* Aligns with your card containers */
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+
+.pg-btn {
+    padding: 10px 18px;
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    color: #1e293b;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+
+.pg-btn:hover {
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+
+.pg-btn.active {
+    background-color: #0f172a; /* Midnight Navy */
+    color: white;
+    border-color: #0f172a;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+
+.pg-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+
+/*----------------------The sidebar menu---------------------------------------- */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: #f4f7f6; /* Light grey background for content area */
+    
+}
+/* Sidebar Styling */
+.sidenav {
+    height: 100vh;
+    width: 240px; /* Wider for a more professional look */
+    position: fixed;
+    z-index: 2500; /* HIGH Z-INDEX: Ensures it stays on top of everything */
+    top: 0;
+    left: 0;
+    background-color: #0f172a; /* Midnight Navy matched to Login Theme */
+    display: flex;
+    flex-direction: column; /* Stack header, menu, footer */
+    box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+    /* STRENGTHENED TRANSITION: cubic-bezier makes the "pop" smoother */
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/*----------------------The sidebar LOGO menu---------------------------------------- */
+
+.sidenav-header {
+    padding: 30px 20px;
+    text-align: center;
+    /* ADDED: Background and Z-index to ensure header stays on top during mobile resize */
+    background-color: #0f172a; 
+    z-index: 1000;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.side-logo {
+    width: 130px;
+    height: auto;
+    filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
+    transition: all 0.6s ease-in-out;
+
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.5));
+    
+    /* ADD THIS LINE TO START THE ANIMATION AGAIN */
+    animation: floatingLogo 5s ease-in-out infinite;
+}
+
+@keyframes floatingLogo {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+}
+
+.side-title {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    transition: all 0.6s ease;
+}
+
+.gold-divider {
+    height: 2px;
+    width: 190px;
+    background-color: #d4af37;
+    margin: 10px auto;
+    border: 0; height: 1px; background: linear-gradient(to right, transparent, #daa520, transparent);
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* 2. Menu Links Section */
+.sidenav-menu {
+    flex: 1; /* This takes up all available space, pushing footer down */
+    padding: 10px 0;
+    transition: all 0.6s ease-in-out;
+}
+
+.sidenav a {
+    padding: 15px 25px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #94a3b8; /* Soft blue-grey text */
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between icon and text */
+    transition: 0.3s;
+    font-weight: bold !important;
+}
+
+.sidenav a .fa-calendar-check{
+    padding-left: 4px;
+    
+
+}
+
+.sidenav a .fa-chart-line{
+    padding-left: 4px
+}
+
+.sidenav a .fa-users{
+    padding-right: 4px
+}
+
+.sidenav a.active {
+    color: white !important;
+    background-color: rgba(212, 175, 55, 0.2) !important; /* Made background slightly stronger */
+    border-left: 5px solid #d4af37 !important; /* Thick gold line */
+}
+
+/* Hover State */
+.sidenav a:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+
+/*----------------------The sidebar SUBSYSTEMS ICONS---------------------------------------- */
+
+.sidenav a i {
+    width: 20px;
+    font-size: 18px;
+    padding-left: auto;
+    padding-right: auto;
+    color: #f0eee6; /* White Icons */
+
+   
+}
+
+/*----ACTIVE YELLOW ICONS---- */
+.sidenav a.active i, 
+.sidenav a.active span,
+.sidenav a.active span::after {
+    color: #d4af37 !important;
+}
+
+/*----------------------The sidebar menu footer section---------------------------------------- */
+/*----------------------The sidebar menu footer section---------------------------------------- */
+.sidenav-footer {
+    width: 100%;
+    padding-bottom: 20px; /* Space from bottom of screen */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: #0f172a;
+    position: relative;
+}
+
+/* FIX: Dropdown trigger positioning for PC/Laptop */
+.dropdown-trigger {
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+    width: 100%;
+    margin-top: 10px; /* Space from menu above */
+}
+
+.user-profile-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    margin: 5px 15px;
+    transition: background 0.2s;
+}
+
+.user-profile-info:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar-small {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    
+}
+
+.user-name-small {
+    color: #e2e8f0;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 130px;
+}
+
+.user-profile-info .fa-chevron-down {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-left: 4px;
+}
+
+/* Dropdown content - appears above the trigger (upward) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    right: 10px;
+    background-color: #1e293b;
+    min-width: 160px;
+    border-radius: 12px 12px 0 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    z-index: 3100;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.dropdown-content.show {
+    display: block ;
+}
+
+/* Links inside dropdown */
+.dropdown-content a {
+    display: absolute;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    color: #e2e8f0;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+.dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.dropdown-content a i {
+    font-size: 16px;
+    width: 20px;
+}
+.dropdown-content .logout-link i {
+    color: #ef4444;
+}
+
+/* Style page content */
+.main {
+    margin-left: 240px; 
+    padding: 20px;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/*================================================================================================== */
+/*================================-(WEB) CONTENT INSIDE THE DASHBOARDS STARTS ===================== */
+/*================================================================================================== */
+
+/*------------------------ (WEB)TEXT UPPER LEFT DASHBOARD SAYING-------------------*/
+/* --- Fix User Title to stretch --- */
+.user-title {
+    position: absolute;
+    top: 0px;
+    left: 240px;
+    /* CHANGE: Use calc instead of 970px */
+    width: calc(100% - 240px); 
+    height: 156px;
+    font-weight: 900;
+    font-size: 24px;
+    padding-bottom: 10px;
+    color: #1e293b;
+    background-color: rgb(248, 248, 248);
+    z-index: 15;
+    transition: all 0.4s ease-in-out;
+}
+
+.user-title p{
+    padding-top: 30px; 
+    padding-left: 20px;    
+        transition: all 0.4s ease-in-out; 
+
+}
+.user-title p, .user-saying p {
+    margin: 0;               /* Removes default paragraph spacing */
+}
+
+.user-saying {
+ position: absolute;            /* CHANGED: Stay steady on scroll */
+ top: 63px;                  /* Spaced below title */
+ left: 260px;                /* Match your margin-left */
+ width: 500px;
+ color: #64748b;
+ font-size: 14px;
+ z-index: 110;
+     transition: all 0.4s ease-in-out; 
+
+}
+
+/*-------------------------------------(WEB) CARDS ON THE MIDDLE-------------------------------*/ 
+.cards-container {
+    position: absolute;
+    top: 100px;
+    left: 259px; /* Matches your user-title left */
+    /* This formula ensures it stretches while maintaining the right margin */
+    width: calc(100% - 259px - 20px); 
+    display: flex;
+    gap: 20px; /* Space between cards */
+    z-index: 100;
+        transition: all 0.4s ease-in-out; 
+
+}
+
+/*------------------------ (WEB)TOTAL MEMBERS CARD DASHBOARD (design is  below) --------------------*/
+.total-members-card {
+    /* REMOVED: position: fixed, width: 260px, margin-left */
+    flex: 1; /* This makes the card stretch equally */
+    display: flex;
+    flex-direction: column;
+    
+    /* Card Styling */
+    background-color: #ffffff; 
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer, more modern shadow */
+    border: 1px solid #e2e8f0; /* Subtle border for definition */
+    border-left: 5px solid rgb(112, 188, 12);
+        transition: all 0.4s ease-in-out; 
+
+}
+/*------------------------ (WEB)MONTHLY GIVING CARD DASHBOARD (design is  below)--------------------*/
+.monthly-giving-card {
+    /* REMOVED: position: fixed, width: 260px, margin-left */
+    flex: 1; /* This makes the card stretch equally */
+    display: flex;
+    flex-direction: column;
+    
+    /* Card Styling */
+    background-color: #ffffff; 
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer, more modern shadow */
+    border: 1px solid #e2e8f0; /* Subtle border for definition */
+    border-left: 5px solid rgb(12, 32, 188);
+        transition: all 0.4s ease-in-out; 
+
+}
+
+/*------------------------ (WEB)UPCOMEING EVENT CARD  DASHBOARD (design is  below)--------------------*/
+.upcoming-event-card {
+    /* REMOVED: position: fixed, width: 260px, margin-left */
+    flex: 1; /* This makes the card stretch equally */
+    display: flex;
+    flex-direction: column;
+    color: rgb(92, 139, 92);
+    /* Card Styling */
+    background-color: #ffffff; 
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer, more modern shadow */
+    border: 1px solid #e2e8f0; /* Subtle border for definition */
+    border-left: 5px solid rgb(174, 65, 67);
+        transition: all 0.4s ease-in-out; 
+
+}
+
+/*------------------------ (WEB)CARDS ADDITIONAL DESIGNS--------------------*/
+/* Internal elements for better design */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.label {
+    color: #64748b; /* Muted slate color */
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+
+.trend {
+    font-size: 13px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+.trend.positive {
+    color: #10b981; /* Professional green */
+}
+
+.trend span {
+    color: #94a3b8; /* Muted text for comparison */
+    font-weight: 400;
+}
+
+
+/* -------------------------------- (WEB)CHART ATTENDANCE TRENDS Styling ------------------------------- */
+/* --- Fix Attendance Trends Chart Section --- */
+.chart-section {
+    position: absolute;
+    display: block;
+    top: 310px;
+    left: 259px;
+    /* CHANGE: Use calc instead of 930px */
+    width: calc(100% - 285px); /* Leaves a 26px margin on the right */
+    z-index: 90;
+    transition: all 0.4s ease-in-out;
+}
+
+.chart-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+}
+
+.chart-header-text h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.chart-header-text p {
+    margin: 5px 0 20px 0;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.chart-wrapper {
+    height: 300px; /* Adjust height as needed */
+    width: 100%;
+    
+}
+
+/* -------------------------------- (WEB) CHART INCOME  VS EXPENSE Styling ------------------------------- */
+
+.income-expenses-section {
+    display: block;
+    position: absolute;
+    top: 750px; /* Same level as Attendance Chart */
+    left: 258px; /* Adjust this to move it to the right of the first chart */
+    width: 930px; /* Fixed width to match the look */
+    z-index: 90;
+        transition: all 0.4s ease-in-out; 
+
+}
+
+/* ========== HAMBURGER BUTTON (web only) ========== */
+.collapse-toggle {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    background: transparent;
+    border: 2px solid rgba(212, 175, 55, 0.5);
+    border:none;
+    width: 40px;
+    height: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #ffffff;
+    font-size: 20px;
+    z-index: 1001;
+}
+.collapse-toggle:hover {
+   
+    transform: scale(1.05);
+   
+}
+
+body.sidebar-collapsed .collapse-toggle {
+    right: 19px !important;
+}       
+
+body.sidebar-collapsed .sidenav {
+    width: 80px !important;
+}
+
+body.sidebar-collapsed .main {
+    margin-left: 80px !important;
+}
+
+body.sidebar-collapsed .user-title {
+    margin-left: -20px !important;
+}
+
+/* Dashboard page adjustments */
+body.sidebar-collapsed .user-title,
+body.sidebar-collapsed .user-saying,
+body.sidebar-collapsed .cards-container,
+body.sidebar-collapsed .chart-section,
+body.sidebar-collapsed .income-expenses-section,
+body.sidebar-collapsed .table-title,
+body.sidebar-collapsed .table-wrapper {
+    left: 100px !important;          /* 80px sidebar + 20px gap */
+    width: calc(100% - 120px) !important;
+}
+
+
+/* Finance page adjustments */
+body.sidebar-collapsed .cards-container {
+    left: 100px !important;
+    width: calc(100% - 120px) !important;
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+}
+
+/* Events page adjustments */
+body.sidebar-collapsed .cards-container {
+    left: 100px !important;
+    width: calc(100% - 120px) !important;
+        transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+}
+
+body.sidebar-collapsed .search-wrapper {
+    left: 80px !important;
+    width: calc(100% - 100px) !important;
+}
+
+/* Users page adjustments */
+body.sidebar-collapsed .table-wrapper {
+    left: 80px !important;
+    width: calc(100% - 100px) !important;
+}
+
+body.sidebar-collapsed .search-wrapper {
+    left: 80px !important;
+    width: calc(100% - 100px) !important;
+}
+
+/* Pagination container */
+body.sidebar-collapsed .pagination-container {
+    margin-left: 100px !important;
+}
+
+/* Sidebar: hide text labels, center icons */
+body.sidebar-collapsed .sidenav a span {
+    display: none !important;
+}
+body.sidebar-collapsed .sidenav a {
+    justify-content: center !important;
+    margin: top 10px !important;
+    gap: 0 !important;
+    padding: 17px 0 !important;
+    font-size: 0    !important; /* Hides text  like DASHBOARD FINANCE EVENT AND MEMBER but keeps icons visible */  
+      
+}
+
+/* Sidebar header: shrink logo, hide title and divider */
+body.sidebar-collapsed .side-logo {
+    width: 70px !important;
+    margin: 0 auto !important;
+    margin-left: -15px !important;
+    margin-top: 28px !important
+}
+body.sidebar-collapsed .side-title {
+    display: none !important;
+}
+
+body.sidebar-collapsed .user-title {
+    left: 80px !important;
+    width: calc(100% - 120px) !important;
+    padding-left: 0px !important; 
+}
+
+body.sidebar-collapsed .gold-divider {
+   width: 60px !important;
+   margin-top: 20px !important;
+   margin-left: -10px !important;
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+body.sidebar-collapsed .sidenav a i {
+    margin-top: 10px !important;
+    font-size: 18px;
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+}
+
+/* Profile switcher: hide name and chevron, keep only avatar */
+body.sidebar-collapsed .user-profile-info span,
+body.sidebar-collapsed .user-profile-info .fa-chevron-down {
+    display: none !important;
+}
+body.sidebar-collapsed .user-profile-info {
+    justify-content: center !important;
+    padding: 8px !important;
+    width: auto !important;
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+body.sidebar-collapsed .user-avatar-small {
+    width: 30px !important;
+    height: 30px !important;
+    margin: 0 !important;
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+}
+body.sidebar-collapsed .dropdown-trigger {
+    margin-top: 300px !important;
+    margin-left: 2px !important;
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+}
+body.sidebar-collapsed .dropdown-content {
+    right: -20px !important;
+    left: auto !important;
+}
+
+
+
+
+/* --- Fix Income vs Expenses Chart Section --- */
+.income-expenses-section {
+    display: block;
+    position: absolute;
+    top: 750px; 
+    left: 258px; 
+    /* CHANGE: Use calc instead of 930px */
+    width: calc(100% - 285px); 
+    z-index: 90;
+    transition: all 0.4s ease-in-out;
+}
+
+/* --- Adjust Sidebar Collapsed Logic for consistency --- */
+body.sidebar-collapsed .user-title,
+body.sidebar-collapsed .chart-section,
+body.sidebar-collapsed .income-expenses-section {
+    left: 100px !important;
+    width: calc(100% - 120px) !important;
+}
+
+
+
+
+
+/*================================================================================================== */
+/*================================-MOBILE MODE IN THis AREA========================================= */
+/*================================================================================================== */
+
+@media (max-width: 768px) {
+
+/*======================================TOP NAVIGATION BAR===================================================*/
+    
+    .chart-section, 
+    .income-expenses-section {
+        left: 10px !important;
+        width: calc(100% - 20px) !important;
+    }
+
+     .collapse-toggle {
+        display: none !important;
+    }
+    
+    .gold-divider {
+        display: none !important; /* Hides the gold divider on mobile */
+    }
+
+   .sidenav-header {
+        display: flex !important; /* Changed to flex to show it */
+        position: fixed !important;
+        top: -1px !important;
+        left: 0 !important;
+        width: 100% !important; /* Spans full width of any device */
+        height: 73px !important; 
+        background-color: #0f172a !important; 
+        flex-direction: row !important; /* Logo and text side-by-side */
+        align-items: center !important; 
+        justify-content: space-between !important; /* Push profile to right */
+        padding: 0 15px !important;
+        z-index: 3000 !important; /* TOP MOST LAYER */
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        box-sizing: border-box;
+
+        -webkit-transform: translateZ(0); /* Forces GPU */
+        transform: translateZ(0);
+        padding-top: env(safe-area-inset-top) !important; /* Handles Notch */
+        
+        /* ADDED: Ensure transition applies during media query trigger */
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        
+    }
+
+    .side-logo {
+        width: 45px !important; /* Scaled for top bar */
+        height: 45px !important;
+        margin-right: 12px;
+        border-radius: 50%; /* Makes it circular like your screenshot */
+    }
+
+    .side-title {
+        margin: 0 !important;
+        font-size: 15px !important;
+        font-weight: 800;
+        align-content: center;
+        flex: 1; /* Takes remaining space */
+        text-align: left;
+        margin-left: -10px !important;
+    }
+
+    .pagination-container {
+        margin-left: 0 !important; /* Center on mobile */
+        gap: 5px;
+        margin-top: 20px;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+    }
+    .pg-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+    }
+
+/* =============================Floating Bottom Bar======================================*/
+
+
+
+    .sidenav {
+        width: 100% !important; /* Fixed: 100% width for any device */
+        height: 75px !important;
+        flex-direction: row !important;
+        top: auto !important;
+        bottom: -2px !important; /* Sticks it to the bottom */
+        left: 0 !important; /* Fixed: 0 to align perfectly on all screens */
+        background-color: #0f172a !important;
+       
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3) !important;
+        border: none !important; /* ERASED all borders */
+        padding: 0 !important;
+        
+        overflow: hidden;
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 3000 !important; /* TOP MOST LAYER */
+        
+    }
+
+    
+    /* 2. The Logo in mobile */
+    /* Note: Commented out the display:none from your original so the logo actually shows */
+    .sidenav-header {
+        display: flex !important; 
+        
+    }
+
+    /* 3. Horizontal Menu Layout */
+    .sidenav-menu {
+        display: flex !important;
+        flex-direction: row !important;
+        width: 100%;
+        height: 100%;
+        justify-content: space-around; /* Spaced evenly for any device width */
+        align-items: center;
+        gap: 0px; /* Gap removed in favor of space-around for compatibility */
+        padding-top: 0px !important; 
+    }
+    
+    /* 4. Individual Icons/Buttons */
+    .sidenav a {
+        flex: 1; /* Each button takes equal space */
+        display: flex !important;
+        flex-direction: column !important;
+        
+        justify-content: center !important;
+        align-items: center !important;
+        height: 100% !important;
+        width: auto !important;
+        padding: 0 !important;
+        gap: 4px !important;
+        border-left: none !important; /* ERASED for base links */
+        position: relative;
+        transition: 0.3s ease;
+
+        text-transform: uppercase !important;
+        font-weight: 600;
+        font-size: 10px !important; /* Slightly smaller for small phones */
+        letter-spacing: 0.5px !important;
+        
+    }
+
+    /* 5. ACTIVE STATE (Override Desktop Gold Line) */
+    .sidenav a.active {
+        background-color: rgba(255, 255, 255, 0.05) !important;
+        border-left: none !important; /* FIXED: Erases the straight yellow line from the left */
+        border-right: none !important;
+        border-top: none !important;
+        
+    }
+
+    .sidenav a.active i, 
+    .sidenav a.active span,
+    .sidenav a.active span::after {
+        color: #ffffff !important;
+    }
+
+    /* The Bottom Indicator (The straight line is now UNDER the icon) */
+    /* The Straight Yellow Line (Indicator) - we'll hide it in favor of the floating indicator */
+    .sidenav a.active::after {
+        display: none !important; /* HIDE the old yellow line */
+    }
+
+
+    /* ----------------------- MOBILE AND TEXT ICONS SUBSYSTEMS BOTTOMBAR-------------------------------*/
+    /* Icon Style */
+    .sidenav a i {
+        font-size: 18px !important;
+        color: #94a3b8 !important; /* Grey when inactive */
+        transition: 0.3s;
+    }
+
+    /* Text Label Style (Small like the image) */
+    /* Target text inside anchor even if not in a span */
+    .sidenav a {
+        color: #94a3b8 !important;
+    }
+
+   /* Hover State */
+    .sidenav a:hover {
+        background-color: transparent !important;
+    }
+
+    /*------------------------  MOBILE: Profile switcher in top-right corner inline with header ----------------------*/
+    .sidenav-footer {
+        position: fixed !important; /* Fixed to viewport, not the bottom bar */
+        top: 10px !important;       /* Adjust this to align with your top logo */
+        right: 10px !important;
+        width: auto !important;
+        height: auto !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        z-index: 4000 !important;   /* Higher than the top navigation bar */
+        display: block !important;
+    }
+    
+
+    
+
+    /* Profile info styling on mobile */
+     .user-profile-info {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 40px;
+        padding: 4px 12px 4px 9px;
+        margin: 0;
+        gap: 8px;
+        width: 135px; /* Kept your default */
+    }
+    .side-logo {
+        animation: none !important;
+    }
+
+    .user-avatar-small {
+        width: 40px !important;
+        height: 40px !important;
+        margin-left:-2px;
+
+    
+        border-radius: 50% !important;
+        object-fit: cover !important;
+        display: block !important;
+        flex-shrink: 0 !important;
+    }
+    .user-name-small {
+        font-size: 13px;
+        max-width: 110px;
+    }
+    .user-profile-info .fa-chevron-down {
+        font-size: 10px;
+    }
+
+    .dropdown-trigger {
+        position: relative !important;
+        cursor: pointer;
+        width: auto !important;
+        left: auto !important;      /* Reset the desktop left positioning */
+        margin-top: 0px !important;
+        margin-right: -10px !important;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    /* Dropdown - appears below the profile trigger */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100% !important;      /* Opens downward */
+        bottom: auto !important;   /* Reset the desktop 'bottom' setting */
+        right: 0 !important;
+        background-color: #0f172a;
+        width: 20px;          /* Kept your default */
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+        border-top-left-radius: 12px;
+        margin-top: 49px;          /* Kept your default space from name */
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .dropdown-content.show {
+        display: block !important;
+        margin-top: 0px !important; /* Adjusted for better spacing on mobile */
+        left: -10px !important; /* Slight right shift for better alignment */
+    }
+
+    /* Style the dropdown links - SIZE INCREASED & ALIGNMENT FIXED */
+    .dropdown-content a {
+        display: flex !important;
+        flex-direction: row !important; /* ICON LEFT, TEXT RIGHT */
+        align-items: center !important;
+        justify-content: flex-start !important; /* Forces items to start from left */
+        gap: 15px;                 /* Space between icon and text */
+        
+        /* SIZE ADJUSTMENTS */
+        padding: 15px 20px !important;  /* Increased for better touch area */
+        height: 25px !important;        /* Increased from 30px to make it larger */
+        font-size: 20px;                /* Kept your default size */
+        
+        color: #e2e8f0;
+        text-decoration: none;
+        right: 0;
+        left: auto;
+        margin-top: 5px;                /* Adjusted for better spacing */
+        margin-bottom: 5px;
+        background-color: #0f172a;
+        min-width: 220px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        border: 1px solid rgba(255,255,255,0.1);
+        overflow: hidden;
+        z-index: 3100;
+        bottom: auto;
+        transition: background 0.2s;
+    }
+
+    .dropdown-content a:hover {
+        background-color: rgba(255,255,255,0.05);
+    }
+
+    /* ICON SIZE INCREASED */
+    .dropdown-content a i {
+        font-size: 22px !important;     /* Increased from 16px to look better with 20px text */
+        width: 30px !important;         /* Fixed width ensures text aligns perfectly */
+        display: flex;
+        justify-content: center;
+    }
+
+    .dropdown-content a:first-child i {
+        color: #ffffff !important; /* Gold to match your theme */
+    }
+
+    /* Color for the 'Logout' icon (The last link) */
+    .dropdown-content .logout-link i {
+        color: #c06c6c !important; /* Professional Red */
+    }
+
+    /* Added to prevent content from being hidden behind fixed bars */
+    .main {
+        margin-left: 0 !important;
+        padding-top: 90px !important; /* Space for top logo bar */
+        padding-bottom: 80px !important; /* Space for bottom nav bar */
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* -----------------DASHBOARD CONTENT MOBILE MODE-------------------- */
+    .content-container {
+        width: auto !important;
+        height: auto !important;
+        left: 10px !important;
+        right: 10px !important;
+        top: 80px !important; /* Adjusted to sit below the new top bar */
+        margin-top: 0px !important;
+        border-radius: 8px !important;
+        padding: 20px !important;
+        z-index: 1 !important; /* Ensure content stays behind the moving nav */
+        position: fixed;
+    }
+
+    /*================= COLLAPSED SIDEBAR PROFILE SWITCHER FIX =================*/
+
+/* 1. Hide the name and the chevron arrow when sidebar is collapsed */
+body.sidebar-collapsed .user-name-small,
+body.sidebar-collapsed .user-profile-info i.fa-chevron-down {
+    display: none !important;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 2. Adjust the container to center the avatar in the thin bar */
+body.sidebar-collapsed .user-profile-info {
+    justify-content: center !important;
+    padding: 5px 0 !important;
+    width: 100% !important;
+    background: transparent !important; /* Makes it look cleaner in the small bar */
+    gap: 0 !important;
+}
+
+/* 3. Reset avatar margins to ensure perfect centering */
+body.sidebar-collapsed .user-avatar-small {
+    display: none !important; /* Hide the avatar in the collapsed state */
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+    
+    /*================================================================================================== */
+    /*================================-MOBILE MODE CONTENT OF DASHBOARD STARTS HERE===================== */
+    /*================================================================================================== */
+   
+     .user-title {
+        position: fixed !important;  /* Steady on scroll */
+        margin-top: -20px;  /* ---move bottom-----*/
+        top: 60px !important;
+        left: 10px !important;
+        height: 80px;
+        background-color: #f8fafc;
+        width: 100%;
+        padding: 10px 0;
+        margin-left: -20px !important;
+        font-size: 20px !important;
+        z-index: 1000 !important;   /* FIXED: High z-index to stay in front */
+    }
+    
+    .user-saying {
+        position: fixed !important;  /* Steady on scroll */
+        margin-top: 5px;
+        height: 20px !important;
+        top: 100px !important;
+        left: 10px !important;
+        margin-left: 0 !important;
+        width: 90% !important;
+        font-size: 13px !important;
+        z-index: 1000 !important;   /* FIXED: High z-index to stay in front */
+    }
+
+    /*====================================CARDS IN THE MOBILE MODE========================================== */
+    .cards-container {
+        /* Change from row to column */
+        display: flex ;
+        flex-direction: column; 
+        
+        /* Reset positioning for mobile */
+        position: absolute;
+        top: 140px;         /* Move it down slightly below the mobile header text */
+        left: 10px;          /* Reset from 259px to a small margin */
+        width: calc(100% - 20px); /* Take up full width minus small side margins */
+        
+        gap: 15px;          /* Gap between vertical cards */
+        z-index: 100;
+    }
+
+
+    
+    /* -----------------CHART ATTENDANCE TRENDS MOBILE MODE-------------------- */
+     .chart-section {
+        position: absolute;
+        display: block;
+        top: 680px; /* Adjust based on where your mobile cards end */
+        left: 10px;
+        width: calc(100% - 20px);
+        padding-bottom: 100px; /* space for bottom nav */
+    }
+
+    /* -----------------CHART INCOME EXPENSE MOBILE MODE-------------------- */
+    .income-expenses-section {
+        position: absolute;
+        display: block;
+        top: 1120px; 
+        left: 10px;
+        width: calc(100% - 20px);
+        margin-bottom: 100px;
+        height: 500px;
+    }
+
+    /* ========== NEW FLOATING MAGIC INDICATOR ========== */
+ 
+
+    /* Floating pill/circle indicator */
+    .floating-indicator {
+        position: absolute;
+        width: 92px !important; 
+        bottom: 17px !important;
+        left: 0px;
+        height: 50px;
+        background: radial-gradient(circle at 30% 30%, #d4af37, #b8860b);
+        border-radius: 100px;
+        opacity: 0.9;
+        transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1), width 0.2s ease;
+        pointer-events: none;
+        z-index: 0;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4);
+        filter: brightness(1.05);
+    }
+
+    /* Ensure navigation links are above the indicator */
+    .sidenav a {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Active icon/label become white and bold */
+    .sidenav a.active {
+        color: white !important;   
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.592);
+        
+    }
+    .sidenav a.active i {
+        color: white !important;
+        animation: floatIndicator 4s ease-in-out infinite;
+    }
+
+
+    @keyframes floatIndicator {
+        0% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-2px);
+        }
+        100% {
+            transform: translateY(0px);
+        }
+    }
+}

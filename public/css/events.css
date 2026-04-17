@@ -1,0 +1,1870 @@
+.modal-overlay {
+    overflow-y: auto; 
+    padding: 40px 0; /* Adds space so modal doesn't touch screen edges */
+    align-items: flex-start; /* Better for scrollable content than 'center' */
+}
+
+/* Limit the height of the modal content box */
+.modal-content {
+    max-height: calc(100vh - 80px); /* Limits box to screen height minus padding */
+    overflow-y: auto; /* Adds the scrollbar INSIDE the modal if content is long */
+    position: relative;
+    margin: auto; /* Centers the modal horizontally in the flex container */
+}
+
+/* Ensure the scrollbar looks clean (optional) */
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar,
+.user-table-scroll::-webkit-scrollbar,
+.modal-overlay::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    width: 0px !important;               /* Remove scrollbar width */
+    background: transparent !important;  /* Make track transparent */
+}
+
+
+.dialog p {
+    font-size: 1.2rem;
+    color: #1f2937;
+    margin: 0 0 24px 0;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+/*------------------------ (WEB)TEXT UPPER LEFT EVENTS SAYING-------------------*/
+
+.user-title {
+ position: fixed;            /* CHANGED: Stay steady on scroll */
+ top: 0px;                  /* Set fixed position */
+ left: 240px;                /* Match your margin-left */
+ width: 980px;  
+ height: 156px;               
+ font-weight: 900;           
+ font-size: 24px;
+ padding-bottom: 10px;
+ 
+ color: #1e293b;
+ background-color: rgb(248, 248, 248);
+ z-index: 110;               /* Ensure it stays above other elements   rgb(248, 248, 248); */
+     transition: all 0.4s ease-in-out; 
+
+}
+body.sidebar-collapsed .user-title {
+    left: 100px !important;
+    width: calc(100% - 120px) !important;
+    padding-left: 19px !important; /* match title padding */
+        transition: all 0.4s ease-in-out; 
+    
+}
+.user-title p{
+    padding-top: 30px; 
+    padding-left: 0px;    
+}
+.user-title p, .user-saying p {
+    margin: 0;               /* Removes default paragraph spacing */
+}
+
+.user-saying {
+ position: fixed;            /* CHANGED: Stay steady on scroll */
+ top: 63px;                  /* Spaced below title */
+ left: 260px;                /* Match your margin-left */
+ width: 500px;
+ color: #64748b;
+ font-size: 14px;
+ z-index: 110;
+     transition: all 0.4s ease-in-out; 
+
+}
+
+/*-------------------------------------------- (WEB)ADD EVENT BUTTON-------------------------------------*/
+.button-wrapper {
+  position: fixed;            /* CHANGED: Stay steady on scroll */
+  top: 30px;                  /* Fixed top position */
+  right: 20px;                /* Fixed right position */
+  width: 140px;
+  align-items: center;
+  display: flex;              
+  justify-content: center;
+  gap: 15px;
+  padding: 15px 20px;
+  background-color: #2563eb; 
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 110;
+  transition: all 0.6s ease;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.498);
+
+  
+}
+
+.button-wrapper:hover {
+  background-color: #1e40af;
+}
+
+.button-wrapper i {
+  font-size: 14px;
+}
+
+.button-wrapper button {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.button-wrapper:active {
+  transform: scale(0.98);    /* shrink when click ni siya  */
+}
+
+/*------------------------ (WEB)SEARCH BAR USER MANAGMENT--------------------*/
+
+.search-wrapper {
+    position: fixed;
+    top: 115px;     
+    left: 240px;     
+    width: calc(100% - 250px); 
+    max-width: 1050px; 
+   
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    z-index: 1001;
+    background-color: rgb(248, 248, 248); /*SEARCHBAR BACKGROUND CARD BACKGROUND COLOR*/
+    transition: all 0.4s ease-in-out; 
+     
+    
+}
+
+
+
+
+.search-wrapper i {
+    position: absolute;
+    left: 28px;
+    color: #94a3b8;
+    font-size: 16px;
+}
+
+.search-wrapper input {
+    width: 300px; /* Width of the search box */
+    padding: 12px 15px 12px 45px; /* Extra left padding for the icon */
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 14px;
+    outline: none;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.search-wrapper input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    width: 350px; /* Grows slightly when clicked */
+}
+
+/*------------------------ (WEB)INSIDE THE CREATE EVENT POPUP (MODAL) DESIGN --------------------*/
+
+.modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.5); /* Semi-transparent midnight navy */
+    backdrop-filter: blur(8px); /* THIS BLURS EVERYTHING BEHIND */
+    z-index: 5000; /* Higher than sidebar and everything else */
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+/* Show modal when active class is added via JS */
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    width: 450px;
+    max-width: 90%;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    animation: modalPopUp 0.3s ease-out;
+}
+
+@keyframes modalPopUp {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #1e293b;
+    font-weight: 800;
+}
+
+.close-modal {
+    font-size: 20px;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.form-group input, .form-group select {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+}
+
+
+/*------------------------ (WEB) DROPDOWN & INPUT DESIGN --------------------*/
+
+.input-group select {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    background-color: white;
+    width: 100%;
+    box-sizing: border-box;
+
+    /* REMOVE DEFAULT ARROW */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+
+.form-group input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-group select:focus{
+     border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.modal-form .form-group:nth-child(1) input {
+   font-size: 14px ;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.cancel-btn {
+    padding: 10px 20px;
+    background: #f1f5f9;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.create-btn {
+    padding: 10px 25px;
+    background: #2563eb;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+}
+
+.create-btn:hover {
+    background: #1e40af;
+}
+
+/*------------------------ (WEB)INSIDE CARDS WHEN CLICKED (MODAL) DESIGN --------------------*/
+.modal-banner {
+    position: block;
+    margin-bottom: 15px;
+    width: 100%;
+    height: 200px;
+    margin-top: -30px;
+}
+
+.modal-banner img {
+    width: 114%;
+    height: 100%;
+    margin-left: -31px;
+    margin-bottom: 50px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    object-fit: cover;
+}
+
+
+.details-modal-content {
+    max-width: 500px;
+}
+
+.detail-info p {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #282727;
+}
+
+.detail-info i {
+    width: 25px;
+    color: #11c317; /* Gold color to match your theme */
+}
+
+.about-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.about-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.about-section p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Footer Button Layout */
+.footer-between {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.edit-btn {
+    flex: 1;
+    padding: 12px;
+    background-color: #2563eb;      /* Blue */
+    color: #ffffff;
+    border: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.delete-btn {
+    flex: 1;
+    padding: 12px;
+    background-color: #dc2626;      /* Red */
+    color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.edit-btn:hover { background-color: #1e40af; }
+.delete-btn:hover { background-color: #b91c1c; }
+
+/*------------------------ (WEB)CONFIRMATION DIALOUG DESIGN IN MODAL EVENTS MANAGMENT--------------------*/
+
+.dialog {
+    border: none;
+    border-radius: 16px;
+    padding: 24px;
+    width: 90%;
+    max-width: 420px;
+    background-color: #ffffff;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    
+    /* Animation when opening */
+    animation: dialogAppear 0.3s ease-out;
+}
+
+/* Modern Blurred Backdrop */
+.dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px); /* Glass effect */
+}
+
+/* Paragraph and Icon Styling */
+.dialog p {
+    font-size: 1.2rem;
+    color: #1f2937;
+    margin: 0 0 24px 0;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* The Warning Icon color */
+.dialog p i {
+    margin-bottom: -5  px;
+    color: #eab308; /* Cornerstone Gold */
+    font-size: 3.4rem;
+    padding: 20px 20px;
+    
+}
+
+/* Button Container */
+.dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* Base Button Styling */
+.dialog-buttons button {
+    padding: 10px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+/* Cancel Button (Neutral) */
+#cancelDelete {
+    background-color: #f3f4f6;
+    color: #4b5563;
+}
+
+#cancelDelete:hover {
+    background-color: #e5e7eb;
+    color: #1f2937;
+}
+
+/* Confirm Button (Action) */
+#confirmDelete {
+    background-color:  rgba(15, 23, 42, 0.909); /* Matching your theme gold */
+    color: #ffffff;
+    box-shadow: 0 6px 8px -1px rgba(98, 98, 98, 0.4);
+}
+
+#confirmDelete:hover {
+    background-color: #1f2937;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px -1px rgba(98, 98, 98, 0.4);
+}
+
+#confirmDelete:active {
+    transform: translateY(0);
+}
+
+/* Entrance Animation */
+@keyframes dialogAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+
+
+/*----------------------------------- (WEB) CARDS-------------------------------*/
+.cards-container {
+    position: absolute;        /* Allows the container to scroll with the page */
+    top: 180px;                /* Pushed below the fixed header and search bar */
+    left: 259px;               /* Sidebar (240px) + 20px breathing room */
+    width: calc(100% - 268px); /* Remaining screen width minus margins */
+    display: flex;
+    flex-wrap: wrap;           /* This allows cards to drop to the next line */
+    gap: 15px;                 /* Space between cards */
+    padding-bottom: 100px;     /* Space at the bottom for scrolling */
+    z-index: 10;
+        transition: all 0.4s ease-in-out; 
+
+}
+
+.service-card {
+    /* MATH: (100% / 3) minus the gap distribution to ensure exactly 3 per row */
+    width: calc((100% / 3) - 17px); 
+    min-width: 300px;          /* Prevents cards from getting too skinny */
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    border-bottom: 5px solid rgb(192, 183, 7);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;           
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+/* 4. FIX: THE BADGE (Worship/Community) */
+.service-badge {
+    position: absolute;       /* Floats ON TOP of image */
+    top: 12px;
+    left: 12px;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    color: #2563eb;           /* Blue text */
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.card-header img {
+    width: 100%;              /* Forces image to fill card width */
+    height: 100%;             /* Forces image to fill header height */
+    object-fit: cover;        /* Prevents squishing/stretching */
+    display: block;
+}
+
+/*------------------------ (WEB) MODAL OVERLAY & CONTENT --------------------*/
+.modal-overlay {
+    display: none; 
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(15, 23, 42, 0.5); 
+    backdrop-filter: blur(8px);
+    z-index: 5000;
+    justify-content: center;
+    align-items: flex-start;  /* Start from top for scrolling */
+    overflow-y: auto;         /* Allow background to scroll */
+    padding: 40px 0;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    width: 450px;
+    max-width: 90%;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    animation: modalPopUp 0.3s ease-out;
+    margin: auto;             /* Centers horizontally in the scrollable overlay */
+    position: relative;
+}
+
+/* Custom Scrollbar for Modal Content */
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+/*------------------------ (WEB) TITLE & SEARCH POSITIONING --------------------*/
+.user-title {
+    position: fixed;
+    top: 0px;
+    left: 240px;
+    width: calc(100% - 240px);
+    height: 156px;
+    font-weight: 900;
+    font-size: 24px;
+    color: #1e293b;
+    background-color: #f8fafc;
+    z-index: 110;
+    padding-left: 20px;
+}
+
+.user-saying {
+    position: fixed;
+    top: 63px;
+    left: 260px;
+    width: 500px;
+    color: #64748b;
+    font-size: 14px;
+    z-index: 110;
+}
+
+.search-wrapper {
+    position: fixed;
+    top: 115px;
+    left: 240px;
+    width: calc(100% - 240px);
+    padding: 10px 20px;
+    z-index: 1001;
+    background-color: #f8fafc;
+}
+
+/*------------------- CARD INTERNAL STYLES -------------------*/
+.card-header {
+    position: relative;
+    height: 190px;
+    overflow: hidden;
+}
+
+.card-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 16px;
+}
+
+.event-title {
+    margin: 0 0 12px 0;
+    color: #1e293b;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.details-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.icon {
+    width: 16px;
+    margin-right: 10px;
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid #f1f5f9;
+    margin: 15px 0;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.registered-count {
+    display: flex;
+    align-items: center;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.icon-gray {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    color: #94a3b8;
+}
+
+.view-details {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.view-details:hover {
+    text-decoration: underline;
+}
+
+.pagination-container {
+    margin-top: 830px !important;
+    margin-left: 0px !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+
+/* --- RESTORING YOUR ORIGINAL DESIGN --- */
+.pg-btn, .pagination-container button {
+    padding: 10px 18px;
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    color: #1e293b;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin: 0 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+
+    -webkit-appearance: none;
+        appearance: none;
+}
+
+.pg-btn:hover, .pagination-container button:hover {
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
+
+    -webkit-appearance: none;
+        appearance: none;
+}
+
+/* Your Original Midnight Navy Active State */
+.pg-btn.active, .pagination-container button.active {
+    background-color: #0f172a; /* Midnight Navy */
+    color: white;
+    border-color: #0f172a;
+}
+
+.pg-btn:disabled, .pagination-container button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+
+    -webkit-appearance: none;
+        appearance: none;
+}
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+/* --- START OF FILE --- */
+
+.modal-overlay {
+    overflow-y: auto; 
+    padding: 40px 0; /* Adds space so modal doesn't touch screen edges */
+    align-items: flex-start; /* Better for scrollable content than 'center' */
+}
+
+/* Limit the height of the modal content box */
+.modal-content {
+    max-height: calc(100vh - 80px); /* Limits box to screen height minus padding */
+    overflow-y: auto; /* Adds the scrollbar INSIDE the modal if content is long */
+    position: relative;
+    margin: auto; /* Centers the modal horizontally in the flex container */
+}
+
+/* Ensure the scrollbar looks clean (optional) */
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.dialog p {
+    font-size: 1.2rem;
+    color: #1f2937;
+    margin: 0 0 24px 0;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+/*------------------------ (WEB)TEXT UPPER LEFT EVENTS SAYING-------------------*/
+
+.user-title {
+ position: fixed;            /* CHANGED: Stay steady on scroll */
+ top: 0px;                  /* Set fixed position */
+ left: 240px;                /* Match your margin-left */
+ width: 980px;  
+ height: 156px;               
+ font-weight: 900;           
+ font-size: 24px;
+ padding-bottom: 10px;
+ 
+ color: #1e293b;
+ background-color: rgb(248, 248, 248);
+ z-index: 110;               /* Ensure it stays above other elements   rgb(248, 248, 248); */
+     transition: all 0.4s ease-in-out; 
+
+}
+body.sidebar-collapsed .user-title {
+    left: 100px !important;
+    width: calc(100% - 120px) !important;
+    padding-left: 19px !important; /* match title padding */
+        transition: all 0.4s ease-in-out; 
+    
+}
+.user-title p{
+    padding-top: 30px; 
+    padding-left: 0px;    
+}
+.user-title p, .user-saying p {
+    margin: 0;               /* Removes default paragraph spacing */
+}
+
+.user-saying {
+ position: fixed;            /* CHANGED: Stay steady on scroll */
+ top: 63px;                  /* Spaced below title */
+ left: 260px;                /* Match your margin-left */
+ width: 500px;
+ color: #64748b;
+ font-size: 14px;
+ z-index: 110;
+     transition: all 0.4s ease-in-out; 
+
+}
+
+/*-------------------------------------------- (WEB)ADD EVENT BUTTON-------------------------------------*/
+.button-wrapper {
+  position: fixed;            /* CHANGED: Stay steady on scroll */
+  top: 30px;                  /* Fixed top position */
+  right: 20px;                /* Fixed right position */
+  width: 140px;
+  align-items: center;
+  display: flex;              
+  justify-content: center;
+  gap: 15px;
+  padding: 15px 20px;
+  background-color: #2563eb; 
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 110;
+  transition: all 0.6s ease;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.498);
+
+  
+}
+
+.button-wrapper:hover {
+  background-color: #1e40af;
+}
+
+.button-wrapper i {
+  font-size: 14px;
+}
+
+.button-wrapper button {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.button-wrapper:active {
+  transform: scale(0.98);    /* shrink when click ni siya  */
+}
+
+/*------------------------ (WEB)SEARCH BAR USER MANAGMENT--------------------*/
+
+.search-wrapper {
+    position: fixed;
+    top: 115px;     
+    left: 240px;     
+    width: calc(100% - 250px); 
+    max-width: 1050px; 
+   
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    z-index: 1001;
+    background-color: rgb(248, 248, 248); /*SEARCHBAR BACKGROUND CARD BACKGROUND COLOR*/
+    transition: all 0.4s ease-in-out; 
+     
+    
+}
+
+
+
+
+.search-wrapper i {
+    position: absolute;
+    left: 28px;
+    color: #94a3b8;
+    font-size: 16px;
+}
+
+.search-wrapper input {
+    width: 300px; /* Width of the search box */
+    padding: 12px 15px 12px 45px; /* Extra left padding for the icon */
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 14px;
+    outline: none;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.search-wrapper input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    width: 350px; /* Grows slightly when clicked */
+}
+
+/*------------------------ (WEB)INSIDE THE CREATE EVENT POPUP (MODAL) DESIGN --------------------*/
+
+.modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.5); /* Semi-transparent midnight navy */
+    backdrop-filter: blur(8px); /* THIS BLURS EVERYTHING BEHIND */
+    z-index: 5000; /* Higher than sidebar and everything else */
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+/* Show modal when active class is added via JS */
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    width: 450px;
+    max-width: 90%;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    animation: modalPopUp 0.3s ease-out;
+}
+
+@keyframes modalPopUp {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #1e293b;
+    font-weight: 800;
+}
+
+.close-modal {
+    font-size: 20px;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.form-group input, .form-group select {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+}
+
+
+/*------------------------ (WEB) DROPDOWN & INPUT DESIGN --------------------*/
+
+.input-group select {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    background-color: white;
+    width: 100%;
+    box-sizing: border-box;
+
+    /* REMOVE DEFAULT ARROW */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+
+.form-group input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-group select:focus{
+     border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.modal-form .form-group:nth-child(1) input {
+   font-size: 14px ;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.cancel-btn {
+    padding: 10px 20px;
+    background: #f1f5f9;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.create-btn {
+    padding: 10px 25px;
+    background: #2563eb;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+}
+
+.create-btn:hover {
+    background: #1e40af;
+}
+
+/*------------------------ (WEB)INSIDE CARDS WHEN CLICKED (MODAL) DESIGN --------------------*/
+.modal-banner {
+    position: block;
+    margin-bottom: 15px;
+    width: 100%;
+    height: 200px;
+    margin-top: -30px;
+}
+
+.modal-banner img {
+    width: 114%;
+    height: 100%;
+    margin-left: -31px;
+    margin-bottom: 50px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    object-fit: cover;
+}
+
+
+.details-modal-content {
+    max-width: 500px;
+}
+
+.detail-info p {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #282727;
+}
+
+.detail-info i {
+    width: 25px;
+    color: #11c317; /* Gold color to match your theme */
+}
+
+.about-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.about-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.about-section p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Footer Button Layout */
+.footer-between {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.edit-btn {
+    flex: 1;
+    padding: 12px;
+    background-color: #2563eb;      /* Blue */
+    color: #ffffff;
+    border: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.delete-btn {
+    flex: 1;
+    padding: 12px;
+    background-color: #dc2626;      /* Red */
+    color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.edit-btn:hover { background-color: #1e40af; }
+.delete-btn:hover { background-color: #b91c1c; }
+
+/*------------------------ (WEB)CONFIRMATION DIALOUG DESIGN IN MODAL EVENTS MANAGMENT--------------------*/
+
+.dialog {
+    border: none;
+    border-radius: 16px;
+    padding: 24px;
+    width: 90%;
+    max-width: 420px;
+    background-color: #ffffff;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    
+    /* Animation when opening */
+    animation: dialogAppear 0.3s ease-out;
+}
+
+/* Modern Blurred Backdrop */
+.dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px); /* Glass effect */
+}
+
+/* Paragraph and Icon Styling */
+.dialog p {
+    font-size: 1.2rem;
+    color: #1f2937;
+    margin: 0 0 24px 0;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* The Warning Icon color */
+.dialog p i {
+    margin-bottom: -5  px;
+    color: #eab308; /* Cornerstone Gold */
+    font-size: 3.4rem;
+    padding: 20px 20px;
+    
+}
+
+/* Button Container */
+.dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* Base Button Styling */
+.dialog-buttons button {
+    padding: 10px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+/* Cancel Button (Neutral) */
+#cancelDelete {
+    background-color: #f3f4f6;
+    color: #4b5563;
+}
+
+#cancelDelete:hover {
+    background-color: #e5e7eb;
+    color: #1f2937;
+}
+
+/* Confirm Button (Action) */
+#confirmDelete {
+    background-color:  rgba(15, 23, 42, 0.909); /* Matching your theme gold */
+    color: #ffffff;
+    box-shadow: 0 6px 8px -1px rgba(98, 98, 98, 0.4);
+}
+
+#confirmDelete:hover {
+    background-color: #1f2937;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px -1px rgba(98, 98, 98, 0.4);
+}
+
+#confirmDelete:active {
+    transform: translateY(0);
+}
+
+/* Entrance Animation */
+@keyframes dialogAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+
+
+/*----------------------------------- (WEB) CARDS-------------------------------*/
+.cards-container {
+    position: absolute;        /* Allows the container to scroll with the page */
+    top: 180px;                /* Pushed below the fixed header and search bar */
+    left: 259px;               /* Sidebar (240px) + 20px breathing room */
+    width: calc(100% - 268px); /* Remaining screen width minus margins */
+    display: flex;
+    flex-wrap: wrap;           /* This allows cards to drop to the next line */
+    gap: 15px;                 /* Space between cards */
+    padding-bottom: 100px;     /* Space at the bottom for scrolling */
+    z-index: 10;
+        transition: all 0.4s ease-in-out; 
+
+}
+
+.service-card {
+    /* MATH: (100% / 3) minus the gap distribution to ensure exactly 3 per row */
+    width: calc((100% / 3) - 17px); 
+    min-width: 300px;          /* Prevents cards from getting too skinny */
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    border-bottom: 5px solid rgb(192, 183, 7);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;           
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+/* 4. FIX: THE BADGE (Worship/Community) */
+.service-badge {
+    position: absolute;       /* Floats ON TOP of image */
+    top: 12px;
+    left: 12px;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    color: #2563eb;           /* Blue text */
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.card-header img {
+    width: 100%;              /* Forces image to fill card width */
+    height: 100%;             /* Forces image to fill header height */
+    object-fit: cover;        /* Prevents squishing/stretching */
+    display: block;
+}
+
+/*------------------------ (WEB) MODAL OVERLAY & CONTENT --------------------*/
+.modal-overlay {
+    display: none; 
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(15, 23, 42, 0.5); 
+    backdrop-filter: blur(8px);
+    z-index: 5000;
+    justify-content: center;
+    align-items: flex-start;  /* Start from top for scrolling */
+    overflow-y: auto;         /* Allow background to scroll */
+    padding: 40px 0;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    width: 450px;
+    max-width: 90%;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    animation: modalPopUp 0.3s ease-out;
+    margin: auto;             /* Centers horizontally in the scrollable overlay */
+    position: relative;
+}
+
+/* Custom Scrollbar for Modal Content */
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+/*------------------------ (WEB) TITLE & SEARCH POSITIONING --------------------*/
+.user-title {
+    position: fixed;
+    top: 0px;
+    left: 240px;
+    width: calc(100% - 240px);
+    height: 156px;
+    font-weight: 900;
+    font-size: 24px;
+    color: #1e293b;
+    background-color: #f8fafc;
+    z-index: 110;
+    padding-left: 20px;
+}
+
+.user-saying {
+    position: fixed;
+    top: 63px;
+    left: 260px;
+    width: 500px;
+    color: #64748b;
+    font-size: 14px;
+    z-index: 110;
+}
+
+.search-wrapper {
+    position: fixed;
+    top: 115px;
+    left: 240px;
+    width: calc(100% - 240px);
+    padding: 10px 20px;
+    z-index: 1001;
+    background-color: #f8fafc;
+}
+
+/*------------------- CARD INTERNAL STYLES -------------------*/
+.card-header {
+    position: relative;
+    height: 190px;
+    overflow: hidden;
+}
+
+.card-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 16px;
+}
+
+.event-title {
+    margin: 0 0 12px 0;
+    color: #1e293b;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.details-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.icon {
+    width: 16px;
+    margin-right: 10px;
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid #f1f5f9;
+    margin: 15px 0;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.registered-count {
+    display: flex;
+    align-items: center;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.icon-gray {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    color: #94a3b8;
+}
+
+.view-details {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.view-details:hover {
+    text-decoration: underline;
+}
+
+.pagination-container {
+    margin-top: 830px !important;
+    margin-left: 0px !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+
+/* --- RESTORING YOUR ORIGINAL DESIGN --- */
+.pg-btn, .pagination-container button {
+    padding: 10px 18px;
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    color: #1e293b;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin: 0 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+
+    -webkit-appearance: none;
+        appearance: none;
+}
+
+.pg-btn:hover, .pagination-container button:hover {
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
+
+    -webkit-appearance: none;
+        appearance: none;
+}
+
+/* Your Original Midnight Navy Active State */
+.pg-btn.active, .pagination-container button.active {
+    background-color: #0f172a; /* Midnight Navy */
+    color: white;
+    border-color: #0f172a;
+}
+
+.pg-btn:disabled, .pagination-container button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+
+    -webkit-appearance: none;
+        appearance: none;
+}
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+  /* 1. RESET THE ENTIRE PAGE FLOW FOR MOBILE */
+  body, html {
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden !important; /* Prevents side-to-side wobbling */
+        width: 100%;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    /* FIX: Switched from Absolute to Relative so it stays below cards correctly on iPhone */
+    .pagination-container {
+        position: relative !important;
+        bottom: auto !important;   
+        left: -10px !important;       
+        right: 0 !important;       
+        margin-left: 0 !important; 
+        margin-top: 160px !important;  /* Space between last card and buttons */
+        padding-bottom: 100px !important; /* Space below for scrolling */
+        
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important; 
+        
+        z-index: 2000 !important;  
+        background: transparent !important;    
+        pointer-events: auto !important;      
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+  .user-title {
+        position: fixed !important;  /* Steady on scroll */
+        margin-top: -20px;  /* ---move bottom-----*/
+        top: 60px !important;
+        left: 10px !important;
+        height: 120px;
+        background-color: #f8fafc;
+        width: 105%;
+        padding: 10px 5;
+        margin-left: -20px !important;
+        font-size: 20px !important;
+        z-index: 1000 !important;   /* FIXED: High z-index to stay in front */
+        -webkit-appearance: none !important;
+        appearance: none !important;
+    }
+
+    .user-saying {
+        position: fixed !important;  /* Steady on scroll */
+        margin-top: 5px;
+        top: 100px !important;
+        left: 10px !important;
+        margin-left: 0 !important;
+        width: 90% !important;
+        font-size: 13px !important;
+        z-index: 1000 !important;   /* FIXED: High z-index to stay in front */
+        -webkit-appearance: none !important;
+        appearance: none !important;
+    }
+    
+    /*------------------------ (MOBILE)ADD EVENTS MANAGMENT--------------------*/
+    .button-wrapper {
+        position: fixed !important;  /* Steady on scroll */
+        top: 130px !important;       /* ---move bottom-----*/
+        left: 5px !important;
+        right: 5px !important;
+        width: auto !important;           
+        min-width: 100px;      
+        margin-left: 0px;
+        padding: 12px 20px;
+        z-index: 1001 !important;    /* FIXED: Highest z-index to be visible over yellow table */
+        display: block !important;   /* CHANGED: Not auto flex */
+        text-align: center;          /* Centers the icon and text inside block */
+        transition: all 0.6s ease;
+        
+    }
+
+
+    .button-wrapper:hover {
+        background-color: #1e40af;
+        
+    }
+
+    .button-wrapper i {
+        font-size: 20px;
+    }
+
+    .button-wrapper button {
+        background: none;
+        border: none;
+        color: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    /*------------------------ (MOBILE)EXPORT REPORTS BUTTON FINANCE MANAGMENT--------------------*/
+    .button-reports-wrapper {
+        position: fixed !important;  /* Steady on scroll */
+        top: 130px !important;       /* ---move bottom-----*/
+        left: 5px !important;
+        right: 5px !important;
+        width: auto !important;           
+        min-width: 130px;      
+        margin-left: 0px;
+        padding: 12px 20px;
+        z-index: 1001 !important;    /* FIXED: Highest z-index to be visible over yellow table */
+        display: block !important;   /* CHANGED: Not auto flex */
+        text-align: center;          /* Centers the icon and text inside block */
+        transition: all 0.6s ease;
+        
+    }
+
+    .button-reports:hover {
+        background-color: #1e40af;
+        
+    }
+
+    .button-reports i {
+        font-size: 20px;
+    }
+
+    .button-reports button {
+        background: none;
+        border: none;
+        color: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+/*------------------------ (MOBILE) CREATE EVENT CARD MODAL FORM INSIDE--------------------*/
+    .modal-form .form-group input, 
+    .modal-form .form-group select,
+    .modal-form .form-group textarea  {
+        height: 48px !important;           /* Larger touch area */
+        font-size: 16px !important;         /* Prevents iOS auto-zoom */
+        padding: 12px 15px !important;
+        border-radius: 10px !important;
+        
+        border: 1px solid #e2e8f0 !important;
+        
+        color: #1e293b !important;
+        background-color: #f8fafc !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+
+        background-repeat: no-repeat !important;
+        background-position: right 15px center !important;
+        background-size: 18px !important;
+
+        outline: none !important; 
+        -webkit-tap-highlight-color: transparent !important;
+        transition: border-color 0.2s, box-shadow 0.2s; /* Smoother transition */
+    }
+    .modal-form .form-group textarea {
+        height: 120px !important; /* taller than regular inputs but same style */
+    }
+
+    .modal-form .form-group select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+        cursor: pointer;
+    }
+
+    .modal-form .form-group input[type="date"] {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2364748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>') !important;
+    }
+
+    .modal-form .form-group input[type="time"] {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2364748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 16 14"></polyline></svg>') !important;
+    }
+
+    .modal-form .form-group input:focus, 
+    .modal-form .form-group select:focus {
+        outline: none !important;
+        
+        border: 1px solid #2563eb !important; 
+        background-color: #ffffff !important;
+        
+        /* FIX 4: Use both standard and webkit box-shadow for the blue glow */
+        -webkit-box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2) !important;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2) !important;
+        
+        
+    }
+
+    .modal-footer {
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+
+    .modal-footer button {
+        width: 100% !important;
+        height: 50px !important;
+        margin: 0 !important;
+        font-size: 15px !important;
+    }
+    
+     /*-----------------------SEARCH BAR MOBILE MODE--------------------------------*/
+    .search-wrapper {     
+        position: fixed;
+        top: 178px;
+        left: 0;
+        right: 0;
+        width: 100%;
+        padding: 12px 7px;
+        box-sizing: border-box; 
+        background-color: rgb(248, 248, 248);
+        
+        border-radius: 5px;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+
+    }
+    
+    
+    .search-wrapper input {
+        position: relative !important;
+        width: 100% !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+    }
+    
+    .search-wrapper i {
+        left: 27px !important;/* Adjusts icon position for centered mobile input */
+    }
+
+
+    /*----------------------------------- (MOBILE) CARDS-------------------------------*/
+    .cards-container {
+        position: relative !important; /* Relative to the page flow */
+        margin-left: 0px; /* Reset from 4px to avoid horizontal overflow */
+        margin-top: -10px;
+        padding: 10px 15px;   
+        width: 100%; /* Reset from 110% to avoid overlap and overflow */
+        left: 0; /* Reset from -35px for iPhone stability */
+    
+        /* CHANGED: Set to column for mobile */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+
+        margin-bottom: 20px; /* Reduced from 220px because pagination is now relative */
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+    }
+ 
+    .service-card {
+        width: 110%;
+        max-width: 650px; /* Ensure cards don't get too wide on tablets */
+        margin-left: -32px !important; /* Add some left margin for better aesthetics on mobile */
+        border-bottom: 5px solid rgb(192, 183, 7);
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+        
+    }
+
+    /*----------------------------------- (MOBILE) MODAL FOR CARDS VIEW DETAILS MODAL -------------------------------*/
+    .modal-banner {
+        position: block !important;
+        width: 100% !important;
+        height: 200px !important;
+    }
+    .modal-banner img {
+        width: 120% !important;
+        height: 100% !important;
+        margin-left: -30px !important;
+       
+        border-top-left-radius : 8px !important;
+        border-top-right-radius: 8px !important;
+        object-fit: cover !important;
+    }
+
+    /*------------------------ (MOBILE)CONFIRMATION DIALOUG DESIGN IN MODAL USER MANAGMENT--------------------*/
+    .dialog {
+        padding: 20px;
+        border-radius: 20px 20px 20px 20px; /* Rounded look for mobile */
+    }
+
+    .dialog p {
+        font-size: 1rem;
+        flex-direction: column; /* Icon above text on very small screens */
+        text-align: center;
+    }
+
+    .dialog-buttons {
+        flex-direction: column-reverse; /* Stack buttons: Cancel on bottom */
+    }
+
+    .dialog-buttons button {
+        width: 100%; /* Full width buttons for easier tapping */
+        padding: 14px; /* Larger hit area */
+    }
+
+}

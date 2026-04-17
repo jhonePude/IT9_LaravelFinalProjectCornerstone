@@ -1,0 +1,1208 @@
+.pagination-container {
+    position: absolute !important;      /* Changed to fixed to anchor to the bottom of the viewport */
+    bottom: -225px !important;         /* Anchors to bottom edge */
+    left: 240px !important;          /* Starts after the sidebar */
+    width: calc(100% - 240px) !important; /* Automatically spans the remaining screen width */
+    display: flex !important;
+    justify-content: center !important; /* PERFECTLY CENTERS THE BUTTONS ON ANY PC SCREEN */
+    align-items: center !important;
+    margin-top: 0 !important;        /* Removed brittle magic numbers */
+    margin-left: 0 !important;       /* Removed brittle magic numbers */
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    z-index: 100;
+    transition: all 0.4s ease-in-out; 
+}
+
+body.sidebar-collapsed .pagination-container {
+    left: 80px !important;           /* Adjusts for the thin sidebar */
+    width: calc(100% - 80px) !important;
+    margin-left: 0 !important;
+    transition: all 0.4s ease-in-out; 
+}
+
+/* --- RESTORING YOUR ORIGINAL DESIGN --- */
+.pg-btn, .pagination-container button {
+    padding: 10px 18px;
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    color: #1e293b;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin: 0 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.pg-btn:hover, .pagination-container button:hover {
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+/* Your Original Midnight Navy Active State */
+.pg-btn.active, .pagination-container button.active {
+    background-color: #0f172a; /* Midnight Navy */
+    color: white;
+    border-color: #0f172a;
+}
+
+.pg-btn:disabled, .pagination-container button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/*------------------------ (WEB)TEXT UPPER LEFT FINANCEMANAGMENT--------------------*/
+
+.user-title {
+    position: fixed;
+    top: 0px;
+    left: 220px;
+    width: calc(100% - 240px); /* Fill the rest of the screen */
+    height: 280px;             /* Reduced height */
+    font-weight: 900;
+    font-size: 24px;
+    color: #1e293b;
+    background-color: #f4f7f6; /* Standard background */
+    z-index: 15;
+    padding-left: 20px;
+        transition: all 0.4s ease-in-out; 
+
+}
+
+.user-title p{
+    padding-top: 30px;    
+}
+.user-title p, .user-saying p {
+    margin: 0;               /* Removes default paragraph spacing */
+}
+
+.user-saying {
+ position: fixed;            /* CHANGED: Stay steady on scroll */
+ top: 63px;                  /* Spaced below title */
+ left: 260px;                /* Match your margin-left */
+ width: 500px;
+ color: #64748b;
+ font-size: 14px;
+ z-index: 110;
+     transition: all 0.4s ease-in-out; 
+
+}
+
+/*------------------------ (WEB)ADD MEMBER BUTTON FINANCE MANAGMENT--------------------*/
+.button-wrapper {
+  position: fixed;            /* CHANGED: Stay steady on scroll */
+  top: 30px;                  /* Fixed top position */
+  right: 20px;                /* Fixed right position */
+  width: 140px;
+  align-items: center;
+  display: flex;              
+  justify-content: center;
+  gap: 5px;
+  padding: 7px 20px;
+  background-color: #2563eb; 
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 110;
+  transition: all 0.6s ease;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.498);
+
+  
+}
+
+.button-wrapper:hover {
+  background-color: #1e40af;
+}
+
+.button-wrapper i {
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.button-wrapper button {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button-wrapper:active {
+  transform: scale(0.98);    /* shrink when click ni siya  */
+}
+
+
+/*------------------------ (WEB) EXPORT REPORTS BUTTON FINANCE MANAGMENT--------------------*/
+.button-reports-wrapper {
+  position: fixed;            /* CHANGED: Stay steady on scroll */
+  top: 30px;                  /* Fixed top position */
+  right: 210px;                /* Fixed right position */
+  width: 140px;
+  align-items: center;
+  display: flex;              
+  justify-content: center;
+  gap: 8px;
+  padding: 15px 20px;
+  background-color: #ffffff; 
+  color: #5c5963;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 110;
+  transition: all 0.6s ease;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.498);
+
+  
+}
+
+.button-reports-wrapperr:hover {
+  background-color: #1e40af;
+}
+
+.button-reports-wrapper i {
+  font-size: 14px;
+}
+
+.button-reports-wrapper button {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button-reports-wrapper:active {
+  transform: scale(0.98);    /* shrink when click ni siya  */
+}
+
+/*------------------------ (WEB)INSIDE THE RECORD TRANSACTION POPUP (MODAL) DESIGN --------------------*/
+.modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.5); /* Semi-transparent midnight navy */
+    backdrop-filter: blur(8px); /* THIS BLURS EVERYTHING BEHIND */
+    z-index: 5000; /* Higher than sidebar and everything else */
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+/* Show modal when active class is added via JS */
+.modal-overlay.active {
+    display: flex;
+}
+
+/* --- UPDATED MODAL CONTENT --- */
+.modal-content {
+    background-color: white;
+    width: 450px;
+    max-width: 95%;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    animation: modalPopUp 0.3s ease-out;
+    
+    /* SCROLLING FIXES */
+    max-height: 90vh;        /* Keeps it within screen height */
+    overflow-y: auto;        /* Makes internal content scrollable */
+    position: relative;
+    margin: auto;            /* Centers it when there is space */
+}
+.modal-content::-webkit-scrollbar,
+.user-table-scroll::-webkit-scrollbar,
+.modal-overlay::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    width: 0px;               /* Remove scrollbar width */
+    background: transparent;  /* Make track transparent */
+}
+
+
+@keyframes modalPopUp {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #1e293b;
+    font-weight: 800;
+}
+
+.close-modal {
+    font-size: 20px;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.form-group input, .form-group select {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+
+/*------------------------ (WEB) DROPDOWN & INPUT DESIGN --------------------*/
+
+.input-group select {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    background-color: white;
+    width: 100%;
+    box-sizing: border-box;
+
+    /* REMOVE DEFAULT ARROW */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+
+.form-group input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-group select:focus{
+     border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.cancel-btn {
+    padding: 10px 20px;
+    background: #f1f5f9;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.record-btn {
+    padding: 10px 25px;
+    background: #2563eb;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+}
+
+.record-btn:hover {
+    background: #1e40af;
+}
+
+
+
+/*------------------(WEB) "Type select" in modal------------------------*/ 
+.modal-form .form-group:nth-child(2) select {
+   width: 100%;
+   height: 42px;
+}
+.modal-form .form-group:nth-child(2) {
+    width: 100%;
+}
+
+/*------------------(WEB) "Category select" in modal------------------------*/ 
+.modal-form .form-group:nth-child(3) select {
+   width: 100%;
+   height: 42px;
+}
+.modal-form .form-group:nth-child(3) {
+    width: 100%;
+}
+
+/*------------------(WEB) "Amount" in modal------------------------*/ 
+.modal-form .form-group:nth-child(4) {
+   width: 100%;
+   margin-left: 0px;
+   margin-top: 0px; /* Aligned with other fields */
+   position: relative;
+}
+
+
+.peso-symbol {
+    position: absolute;
+    left: 12px; 
+    bottom: 11px;          
+    color: #555;   
+    font-size: 16px;       
+    font-weight: bold;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.modal-form .form-group:nth-child(4) input {
+    position: relative; /* Fixed: Removed absolute and bottom offset */
+    width: 100%;
+    padding: 10px 10px 10px 30px !important; /* Space for Peso symbol */
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    height: 42px;
+    box-sizing: border-box;
+}
+
+/*------------------(WEB) "DATE" in modal------------------------*/ 
+.modal-form .form-group:nth-child(5) {
+   width: 100%;
+   margin-left: 0;
+   margin-top: 0px; /* Aligns with category field */
+}
+
+.date-input {
+    width: 100%;
+    height: 42px;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: inherit;
+    color: #333;
+    outline: none;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(0.2); /* Makes the icon slightly subtle */
+}
+
+
+/*------------------------ (WEB)CONFIRMATION DIALOUG DESIGN IN MODAL FINANCE MANAGMENT--------------------*/
+
+.dialog {
+    border: none;
+    border-radius: 16px;
+    padding: 24px;
+    width: 90%;
+    max-width: 420px;
+    background-color: #ffffff;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    
+    /* Animation when opening */
+    animation: dialogAppear 0.3s ease-out;
+}
+
+/* Modern Blurred Backdrop */
+.dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px); /* Glass effect */
+}
+
+/* Paragraph and Icon Styling */
+.dialog p {
+    font-size: 1.2rem;
+    color: #1f2937;
+    margin: 0 0 24px 0;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* The Warning Icon color */
+.dialog p i {
+    margin-bottom: -5  px;
+    color: #eab308; /* Cornerstone Gold */
+    font-size: 3.4rem;
+    padding: 20px 20px;
+    
+}
+
+/* Button Container */
+.dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* Base Button Styling */
+.dialog-buttons button {
+    padding: 10px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+/* Cancel Button (Neutral) */
+#cancelDelete {
+    background-color: #f3f4f6;
+    color: #4b5563;
+}
+
+#cancelDelete:hover {
+    background-color: #e5e7eb;
+    color: #1f2937;
+}
+
+/* Confirm Button (Action) */
+#confirmDelete {
+    background-color:  rgba(15, 23, 42, 0.909); /* Matching your theme gold */
+    color: #ffffff;
+    box-shadow: 0 6px 8px -1px rgba(98, 98, 98, 0.4);
+}
+
+#confirmDelete:hover {
+    background-color: #1f2937;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px -1px rgba(98, 98, 98, 0.4);
+}
+
+#confirmDelete:active {
+    transform: translateY(0);
+}
+
+/* Entrance Animation */
+@keyframes dialogAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+
+/*-------------------------------------(WEB) CARDS ON THE MIDDLE-------------------------------*/ 
+.cards-container {
+    position: fixed;
+    top: 100px;
+    left: 260px; 
+    width: calc(100% - 260px - 15px); /* Standardized Width */
+    display: flex;
+    gap: 20px;
+    z-index: 100;
+        transition: all 0.4s ease-in-out; 
+
+}
+
+/*------------------------ (WEB)TOTAL BALANCE CARD FINANCE MANAGMENT (design is  below) --------------------*/
+.balance-card {
+    /* REMOVED: position: fixed, width: 260px, margin-left */
+    flex: 1; /* This makes the card stretch equally */
+    display: flex;
+    flex-direction: column;
+    
+    /* Card Styling */
+    background-color: #ffffff; 
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer, more modern shadow */
+    border: 1px solid #e2e8f0; /* Subtle border for definition */
+}
+
+.balance-card {
+    /* REMOVED: position: fixed, width: 260px, margin-left */
+    flex: 1; /* This makes the card stretch equally */
+    display: flex;
+    flex-direction: column;
+    
+    /* Card Styling */
+    background-color: #ffffff; 
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer, more modern shadow */
+    border: 1px solid #e2e8f0; /* Subtle border for definition */
+    border-left: 5px solid rgb(11, 11, 11); 
+        transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+}
+
+/*------------------------ (WEB)INCOME CARD FINANCE MANAGMENT (design is  below)--------------------*/
+.income-card {
+    /* REMOVED: position: fixed, width: 260px, margin-left */
+    flex: 1; /* This makes the card stretch equally */
+    display: flex;
+    flex-direction: column;
+    color: rgb(92, 139, 92);
+    /* Card Styling */
+    background-color: #ffffff; 
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer, more modern shadow */
+    border: 1px solid #e2e8f0; /* Subtle border for definition */
+    border-left: 5px solid rgb(92, 139, 92);
+        transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+}
+
+/*------------------------ (WEB)EXPENSE CARD FINANCE MANAGMENT (design is below)--------------------*/
+.expense-card {
+    /* REMOVED: position: fixed, width: 260px, margin-left */
+    flex: 1; /* This makes the card stretch equally */
+    display: flex;
+    flex-direction: column;
+    color: rgb(222, 34, 34);
+    /* Card Styling */
+    background-color: #ffffff; 
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer, more modern shadow */
+    border: 1px solid #e2e8f0; /* Subtle border for definition */
+    border-left: 5px solid rgb(222, 34, 34);
+        transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+}
+
+/*------------------------ (WEB)CARDS ADDITIONAL DESIGNS--------------------*/
+/* Internal elements for better design */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.label {
+    color: #64748b; /* Muted slate color */
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+
+.trend {
+    font-size: 13px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+.trend.positive {
+    color: #10b981; /* Professional green */
+}
+
+.trend span {
+    color: #94a3b8; /* Muted text for comparison */
+    font-weight: 400;
+}
+
+/*---------------------------------- (WEB)TABLE DESIGN FINANCE MANAGMENT-------------------------*/
+
+/*------------------------ (WEB)SEARCH BAR USER MANAGMENT--------------------*/
+
+.search {
+    position: relative;
+    /* Match your table-title exactly */
+    margin-left: 6px; 
+    width: 100%; 
+    
+    /* Move the 320px gap here so it clears the cards */
+    margin-top: -30px; 
+    
+    padding: 10px 20px;
+    background-color: #f8fafc; 
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    z-index: 10;
+    
+    /* Remove bottom border-radius so it connects to the title */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom: 1px solid #e2e8f0; 
+        transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+}
+
+
+
+.search i {
+    position: absolute;
+    left: 30px;                 /* Adjusted to sit inside the input */
+    color: #7c8da6;
+    font-size: 16px;
+    pointer-events: none;       /* Ensures you can click the input through the icon */
+    z-index: 101;      
+}
+
+.search input {
+    width: 100%;           /* Search bar takes full width of the container */
+    max-width: 400px;      /* But don't let it get too wide */
+    padding: 10px 15px 10px 45px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+
+.table-title {
+    width: 100%; /* Standardized Width */
+    margin-left: 5px; 
+    margin-top: 320px;               /* Pushes it below the fixed cards */
+    padding: 15px 20px; 
+    font-weight: 750;           
+    font-size: 18px;
+    color: #1e293b;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-sizing: border-box; 
+    z-index: 10; 
+    background-color: #f8fafc;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05); /* Shadow on top only */
+
+}
+
+.table-wrapper {
+    
+    margin-top: 0px;                  /* Connects directly to the title/search above */
+    margin-left: 5px;                 /* MATCHES TITLE AND SEARCH */
+    width: 100%;   /* MATCHES TITLE AND SEARCH */
+    background-color: white;
+    box-sizing: border-box;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    height: 250px;
+}
+body.sidebar-collapsed .table-title,
+body.sidebar-collapsed .table-wrapper {
+    margin-left: 0px !important; /* Aligns with the new title/search position */
+    width: 100% !important;       /* Fills the new available space */
+        transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+}
+
+.user-table-scroll {
+    
+    width: 100%;                      /* Fills the 5px-margin wrapper */
+    max-height: calc(150vh - 420px);  /* Adjust based on your screen height */
+    overflow-x: auto; 
+    overflow-y: auto;
+    height: 82%; 
+    background-color: white;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: 1px solid #e2e8f0;
+    
+}
+
+.user-table td {
+    /* CHANGED: Reduced vertical padding from 15px to 12px */
+    padding: 12px 20px; 
+    text-align: left;
+    border-bottom: 1px solid #eee; 
+    white-space: nowrap; 
+}
+
+
+
+/* TRANSACTION ID HEADER LENGTH CHANGE*/
+.user-table th:nth-child(1), 
+.user-table td:nth-child(1) { 
+  width: 100px; 
+  min-width: 100px; 
+}
+
+/* DESCRIPTION HEADER LENGTH CHANGE*/
+.user-table th:nth-child(2), 
+.user-table td:nth-child(2) {
+    min-width: 245px; 
+    white-space: normal; 
+   
+}
+
+/* DATE HEADER LENGTH CHANGE*/
+.user-table th:nth-child(5), 
+.user-table td:nth-child(5) {
+     min-width: 100px; 
+}
+
+
+
+.user-table {
+    width: 100%;                      /* Makes columns spread to the edges */
+    border-collapse: collapse; 
+    font-weight: 600;
+    background-color: white; 
+}
+
+.user-table th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #f8fafc;
+    color: #94a3b8; /* Muted text like the photo */
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px; /* Smaller, sharper headers */
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+    
+}
+
+.user-table td {
+    padding: 15px 20px; /* FIXED: Changed to 15px 20px to match Users.css */
+    text-align: left;
+    border-bottom: 1px solid #eee; /* FIXED: Changed border color to match Users.css */
+    white-space: nowrap; /* FIXED: Added white-space to match Users.css */
+}
+
+/* Row Hover effect like the photo */
+.user-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+
+/* --------------------- Status Badge Style ------------------------------- */
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 800;
+    font-size: 12px;
+}
+
+.dot {
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+
+
+.status-completed { color: #08cd67; }
+.status-completed .dot { background-color: #10b981; }
+
+.status-pending { color: #f59e0b; }
+.status-pending .dot { background-color: #f59e0b; }
+
+/* --------------------- Action Icons ------------------------------- */
+/* --- PROFESSIONAL PAY NOW BUTTON INTEGRATION --- */
+.btn-pay-now {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: white !important;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+}
+
+.btn-pay-now:hover {
+    transform: translateY(-2px);
+    background: #1e40af;
+    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+}
+
+.paid-placeholder {
+    color: #08cd67;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 14px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px dashed #e2e8f0;
+}
+
+/* Adjusting the action column spacing */
+.action-container {
+    display: flex;
+    align-items: center;
+    gap: 8px !important;
+    justify-content: flex-start;
+}
+
+.edit-icon, .delete-icon {
+    background: #f1f5f9;
+    width: 32px;
+    height: 32px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    padding: 0 !important;
+    font-size: 14px !important;
+}
+/* --- END OF INTEGRATION --- */
+ 
+/*========================================MOBILE MODE==========================================*/
+/*========================================MOBILE MODE==========================================*/
+/*========================================MOBILE MODE==========================================*/
+@media (max-width: 768px) {
+
+   html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        height: 1500px !important; /* Increased height to accommodate the new layout */
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /*------------------------ (MOBILE) PAGINATION MOVED BELOW TABLE --------------------*/
+    .pagination-container {
+        position: relative !important;
+        /* FIXED: Removed -1575px and set to 0 to appear naturally below the table */
+        bottom: 0 !important;         
+        top: 800px !important; /* Aligned to follow the table-wrapper's top: 825px */
+        left: -40px !important;
+        right: 0 !important;
+        margin: 20px auto !important; 
+        border-bottom-left-radius: 20px !important;
+        border-bottom-right-radius: 20px !important;
+        
+        background-color: #ffffff !important;
+        width: 130% !important;
+        height: auto !important; 
+        display: flex !important;
+        justify-content: center !important; 
+        align-items: center !important;
+        padding: 15px 0 !important; 
+        
+        z-index: 500 !important;
+        pointer-events: auto;  
+        -webkit-appearance: none;
+        appearance: none;
+    }
+    /*table*/
+    .table-wrapper {
+        position: relative !important; 
+        height: auto !important;
+        top: 830px !important;         
+        left: 0 !important;
+        margin-left: -20px !important;  
+        margin-right: 10px !important;
+        margin-bottom: 10px !important; /* Reduced from 130px to pull pagination closer */
+        width: calc(115% - 20px) !important; 
+        display: block !important;
+        border-radius: 0px 0px;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    .user-table-scroll {
+        position: relative !important;
+        max-height: none !important;   
+        overflow-y: visible !important; 
+        overflow-x: auto !important;    
+        overscroll-behavior: auto !important;
+        padding-bottom: 10px !important; 
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    .user-title {
+        position: fixed !important;  
+        margin-top: -20px;  
+        top: 60px !important;
+        left: -10px !important;
+        height: 140px;
+        background-color: #f8fafc;
+        width: 100%;
+        padding: 10px 0;
+        margin-left: 0 !important;
+        font-size: 20px !important;
+        z-index: 1000 !important;   
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    .user-saying {
+        position: fixed !important;  
+        margin-top: 5px;
+        top: 100px !important;
+        left: 10px !important;
+        margin-left: 0 !important;
+        width: 90% !important;
+        font-size: 13px !important;
+        z-index: 1000 !important; 
+        -webkit-appearance: none;
+        appearance: none;  
+    }
+    
+    .button-wrapper {
+        position: fixed !important;  
+        top: 182px !important;       
+        left: 5px !important;
+        right: 5px !important;
+        width: auto !important;           
+        min-width: 100px;      
+        margin-left: 0px;
+        padding: 12px 20px;
+        z-index: 1001 !important;    
+        display: block !important;   
+        text-align: center;          
+        transition: all 0.6s ease;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    .button-wrapper:hover {
+        background-color: #1e40af;
+    }
+
+    .button-wrapper i {
+        font-size: 20px;
+    }
+
+    .button-wrapper button {
+        background: none;
+        border: none;
+        color: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .button-reports-wrapper {
+        position: fixed !important;  
+        top: 130px !important;       
+        left: 5px !important;
+        right: 5px !important;
+        width: auto !important;           
+        min-width: 100px;      
+        margin-left: 0px;
+        padding: 12px 20px;
+        z-index: 1001 !important;    
+        display: block !important;   
+        text-align: center;          
+        transition: all 0.6s ease;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    .button-reports:hover {
+        background-color: #1e40af;
+    }
+
+    .button-reports i {
+        font-size: 20px;
+    }
+
+    .button-reports button {
+        background: none;
+        border: none;
+        color: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .modal-footer button {
+        height: 49px !important; 
+        width: 16px !important;
+        font-size: 14px !important;
+        margin-right: 0px !important;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    .modal-footer .record-btn, .modal-footer .cancel-btn {
+        width: 170px !important;
+        padding: 18px 0px !important;
+    }
+
+    .modal-form .form-group input, 
+    .modal-form .form-group select {
+        height: 48px !important;           
+        font-size: 16px !important;         
+        padding: 12px 15px !important;
+        border-radius: 10px !important;
+        border: 1px solid #e2e8f0 !important;
+        color: #1e293b !important;
+        background-color: #f8fafc !important;
+        width: 100% !important;
+        box-sizing: border-box !important;  
+        margin-left: 0 !important;
+        outline: none !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+    }
+
+    .modal-form .form-group select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+        background-repeat: no-repeat !important;
+        background-position: right 15px center !important;
+        background-size: 18px !important;
+        padding-right: 40px !important; 
+    }
+
+    .peso-symbol {
+        display: none !important; 
+    }
+
+    .modal-form .form-group input[type="date"] {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2364748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>') !important;
+        background-repeat: no-repeat !important;
+        background-position: right 15px center !important;
+        background-size: 18px !important;
+    }
+
+    .modal-form .form-group {
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        width: 100% !important;
+        gap: 8px !important;
+    }
+
+    .dialog {
+        padding: 20px;
+        border-radius: 20px; 
+    }
+
+    .dialog-buttons {
+        flex-direction: column-reverse; 
+    }
+
+    .dialog-buttons button {
+        width: 100%; 
+        padding: 14px; 
+    }
+
+    .cards-container.finance-cards {
+        position: relative !important;
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 15px !important;
+        padding: 10px 0 !important;
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        width: calc(109% - 0px) !important;
+        white-space: nowrap !important;
+        top: 150px !important;        
+        left: -25px !important;
+        flex-wrap: nowrap !important;
+    }
+
+    .cards-container.finance-cards > div {
+        flex: 0 0 auto !important;
+        width: 84% !important;
+        scroll-snap-align: start !important;
+        margin: 0 !important;
+    }
+
+    /*recent transactions*/
+    .search {
+        position: relative !important;
+        top: 810px !important; 
+        margin-top: -990px !important;      
+        margin-left: -10px !important;     
+        margin-right: 10px !important;
+        width: calc(105% - 0px) !important; 
+        z-index: 10 !important;
+        padding: 5px 0 !important;
+        border-radius: 0px;
+    }
+
+    .search input {
+        width: 100% !important;           
+        font-size: 20px;
+    }
+
+    .table-title {
+        position: relative !important; 
+        width: calc(120% - 20px) !important; 
+        margin-left: -20px !important; 
+        margin-top: 250px !important;   
+        left: 0px !important;            
+        top: -80px !important;             
+        height: 108px;
+        display: block !important;
+        background-color: #f8fafc; 
+        text-align: center !important; 
+        padding-left: 30px !important;  
+        font-weight: 750;
+
+        -webkit-appearance: none;
+        appearance: none;
+    }  
+
+    .user-table th, .user-table td {
+        padding: 15px 10px !important; 
+        font-weight: 700 !important; 
+        text-align: center;
+    }
+
+    .edit-icon .i, .delete-icon .i {
+        font-size: 20px !important; 
+        padding: 15px; 
+        display: inline-block !important;
+        width: 60px !important;
+
+        -webkit-appearance: none;
+        appearance: none;
+    }
+}
