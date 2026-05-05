@@ -72,9 +72,11 @@
             <div id="myDropdown" class="dropdown-content">
                 {{-- ISSUE 2 FIX: Dynamic Link Switching between Portal and Dashboard --}}
                 @if(Request::is('member/portal*'))
-                    <a href="{{ route('dashboard') }}">
-                        <i class="fa-solid fa-chart-line"></i> Dashboard
-                    </a>
+                    @if(Auth::user()->Role_Id == 1)
+                        <a href="{{ route('dashboard') }}">
+                            <i class="fa-solid fa-chart-line"></i> Dashboard
+                        </a>
+                    @endif
                 @else
                     <a href="{{ route('member.portal') }}" class="{{ Request::is('member/portal') ? 'active' : '' }}">
                         <i class="fa-solid fa-id-card-clip"></i> Portal
