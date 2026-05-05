@@ -266,7 +266,7 @@
                 body: formData
             }).then(res => res.json()).then(data => {
                 if (data.success) window.location.reload();
-                else alert("Upload failed. Please check folder permissions.");
+                else alert("Upload failed: " + (data.error || "Permission error"));
             });
         }
     };
