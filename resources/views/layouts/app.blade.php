@@ -16,7 +16,7 @@
     
     @stack('styles')
 </head>
-<body class="">
+<body class=""> <!-- JavaScript will add 'sidebar-collapsed' here -->
 
     <!-- SIDENAV (Midnight Navy Theme) -->
     <nav class="sidenav" id="mySidenav">
@@ -26,6 +26,7 @@
             <h1 class="side-title">CORNERSTONE</h1>
             <hr class="gold-divider">
             
+            <!-- Hamburger Button for Desktop Collapse -->
             <button class="collapse-toggle" onclick="toggleSidebar()">
                 <i class="fa-solid fa-bars"></i>
             </button>
@@ -33,6 +34,7 @@
 
         <!-- Sidebar Menu -->
         <div class="sidenav-menu">
+            {{-- ISSUE 1 FIX: Subsystems only visible when NOT in Portal mode --}}
             @if(!Request::is('member/portal*'))
                 <a href="{{ route('dashboard') }}" class="{{ Request::is('dashboard') ? 'active' : '' }}">
                     <i class="fa-solid fa-chart-line"></i>
@@ -50,25 +52,26 @@
                     <i class="fa-solid fa-wallet"></i>
                     <span>Finance</span>
                 </a>
+            
             @endif
         </div>
 
+        <!-- Floating Magic Indicator (Mobile Only) -->
         <div class="floating-indicator" id="indicator"></div>
 
         <!-- Sidebar Footer (Profile & Dropdown) -->
         <div class="sidenav-footer">
             <div class="dropdown-trigger" onclick="toggleDropdown()">
                 <div class="user-profile-info">
-                    {{-- FIX: Production-ready image path check --}}
-                    <img src="{{ Auth::user()->Profile_Picture && file_exists(public_path('images/'.Auth::user()->Profile_Picture)) ? asset('images/'.Auth::user()->Profile_Picture) : asset('images/profile-male.png') }}" class="user-avatar-small">
+                    <img src="/images/{{ Auth::user()->Profile_Picture }}" class="user-avatar-small">
                     <span class="user-name-small">{{ Auth::user()->Fullname }}</span>
                     <i class="fa-solid fa-chevron-down"></i>
                 </div>
             </div>
             
             <div id="myDropdown" class="dropdown-content">
+                {{-- ISSUE 2 FIX: Dynamic Link Switching between Portal and Dashboard --}}
                 @if(Request::is('member/portal*'))
-                    {{-- FIX: Only show Dashboard link to Admin (Role 1) --}}
                     @if(Auth::user()->Role_Id == 1)
                         <a href="{{ route('dashboard') }}">
                             <i class="fa-solid fa-chart-line"></i> Dashboard
@@ -80,6 +83,7 @@
                     </a>
                 @endif
 
+                {{-- Breeze Logout Fix: Requires Form POST --}}
                 <form method="GET" action="{{ route('logout') }}" id="logout-form" style="display: none;">
                     @csrf
                 </form>
@@ -95,28 +99,53 @@
         @yield('content')
     </main>
 
+    <!-- Scripts for theme logic -->
     <script>
+        // 1. Sidebar Collapse Logic (Desktop)
         function toggleSidebar() {
             document.body.classList.toggle('sidebar-collapsed');
+            
+            // Save state to local storage so it stays collapsed on refresh
             const isCollapsed = document.body.classList.contains('sidebar-collapsed');
             localStorage.setItem('sidebarState', isCollapsed ? 'collapsed' : 'expanded');
         }
 
+        // 2. Profile Dropdown Logic
         function toggleDropdown() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
 
+        // 3. Mobile Magic Indicator Positioning
         document.addEventListener('DOMContentLoaded', function() {
+            // Restore sidebar state
             if (localStorage.getItem('sidebarState') === 'collapsed') {
                 document.body.classList.add('sidebar-collapsed');
             }
+
+            const activeLink = document.querySelector('.sidenav-menu a.active');
+            const indicator = document.getElementById('indicator');
+            
+            if (activeLink && indicator && window.innerWidth <= 768) {
+                // Initial indicator position
+                const moveIndicator = () => {
+                    const rect = activeLink.getBoundingClientRect();
+                    indicator.style.transform = `translateX(${rect.left}px)`;
+                    indicator.style.width = `${rect.width}px`;
+                };
+                moveIndicator();
+                window.addEventListener('resize', moveIndicator);
+            }
         });
 
+        // Close dropdown if clicked outside
         window.onclick = function(event) {
             if (!event.target.closest('.dropdown-trigger')) {
                 var dropdowns = document.getElementsByClassName("dropdown-content");
                 for (var i = 0; i < dropdowns.length; i++) {
-                    if (dropdowns[i].classList.contains('show')) dropdowns[i].classList.remove('show');
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
                 }
             }
         }
