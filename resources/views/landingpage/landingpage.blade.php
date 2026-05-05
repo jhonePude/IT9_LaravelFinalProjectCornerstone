@@ -11,6 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
+
+    <img src="{{ secure_asset('images/logo.png') }}" class="logo-img" alt="Cornerstone Logo">
+    <img src="{{ secure_asset('images/church1.jpg') }}" alt="Our Community" id="churchImage">
+    <img src="{{ secure_asset('images/logo.png') }}" class="footer-logo" alt="Cornerstone">
+
+
     <style>
         html { scroll-behavior: smooth; }
         :root { --gold: #d4af37; --navy: #0f172a; }
