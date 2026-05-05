@@ -39,9 +39,9 @@ RUN php artisan config:clear \
 
 RUN php artisan storage:link || true
 
-RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache public/uploads \
-&& chown -R www-data:www-data storage bootstrap/cache public/uploads \
-&& chmod -R 775 storage bootstrap/cache public/uploads
+RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache public/images \
+&& chown -R www-data:www-data storage bootstrap/cache public/images \
+&& chmod -R 775 storage bootstrap/cache public/images
 
 EXPOSE 10000
 
