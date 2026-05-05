@@ -63,19 +63,17 @@
             <h2 class="logo-text">CORNERSTONE</h2>
         </div>
 
-        <!-- ADD THIS: Hamburger Button -->
-        <div class="mobile-menu-toggle" id="mobile-toggle">
-            <i class="fa-solid fa-bars"></i>
-        </div>
-        <div class="nav-links" id="nav-menu">
+        <div class="nav-links">
             <a href="#home">Home</a>
             <a href="#about">Our Mission</a>
+            <a href="#events">Events</a>
+            <a href="#giving-impact">Giving Impact</a>
             <a href="#connect">Connect</a>
             <a href="/login" class="btn-portal">Sign in</a>
         </div>
     </nav>
 
-    <header class="hero">
+    <header class="hero" id="home">
         <div class="hero-content">
             <span class="mission-tag">The Great Commission</span>
             <h1>BUILD YOUR LIFE ON THE <span style="color: var(--gold)">ROCK</span></h1>
@@ -127,6 +125,63 @@
         </div>
     </section>
 
+    <!-- REDESIGNED SECTION: Agenda List -->
+    <section class="landing-events reveal" id="events" style="background: #fff;">
+        <div class="section-header">
+            <h2>Upcoming Events</h2>
+            <div class="divider"></div>
+            <p style="color: #64748b; margin-top: 15px;">Join us in our upcoming activities and services.</p>
+        </div>
+        <div class="agenda-container">
+            @forelse($events as $event)
+                <div class="agenda-item">
+                    <div class="agenda-date">
+                        <span class="day">{{ \Carbon\Carbon::parse($event->Event_Date)->format('d') }}</span>
+                        <span class="month">{{ \Carbon\Carbon::parse($event->Event_Date)->format('M') }}</span>
+                    </div>
+                    <div class="agenda-info">
+                        <span class="agenda-badge">{{ $event->category->Event_Category_Name ?? 'General' }}</span>
+                        <h3>{{ $event->Title }}</h3>
+                        <p><i class="fa-solid fa-location-dot"></i> {{ $event->Location }} • <i class="fa-regular fa-clock"></i> {{ \Carbon\Carbon::parse($event->Event_Time)->format('h:i A') }}</p>
+                    </div>
+                    <div class="agenda-action">
+                        <a href="{{ route('register') }}" class="agenda-btn">Join</a>
+                    </div>
+                </div>
+            @empty
+                <p style="text-align: center; color: #94a3b8; width: 100%;">No upcoming events scheduled.</p>
+            @endforelse
+        </div>
+    </section>
+
+    <!-- GIVING IMPACT SECTION (Real Percentages) -->
+    <section class="giving-impact reveal" id="giving-impact" style="background: #f8fafc;">
+        <div class="section-header">
+            <h2>Where Your Giving Goes</h2>
+            <div class="divider"></div>
+            <p style="color: #64748b; margin-top: 15px;">Transparency is our priority. Here is how your offerings are used based on our recent financial records.</p>
+        </div>
+        <div class="transparency-grid">
+            @forelse($impactData as $data)
+                <div class="transparency-card">
+                    <div class="transparency-icon">
+                        @if(Str::contains($data->Category_Name, 'Mission')) <i class="fa-solid fa-earth-americas"></i>
+                        @elseif(Str::contains($data->Category_Name, 'Util')) <i class="fa-solid fa-church"></i>
+                        @elseif(Str::contains($data->Category_Name, 'Youth')) <i class="fa-solid fa-child-reaching"></i>
+                        @else <i class="fa-solid fa-hand-holding-heart"></i> @endif
+                    </div>
+                    <h3>{{ $data->Category_Name }}</h3>
+                    <div class="percentage-wrapper">
+                        <div class="percentage-bar" style="width: {{ $data->percentage }}%;">{{ $data->percentage }}%</div>
+                    </div>
+                    <p style="margin-top: 10px; font-size: 12px; color: #64748b;">Allocation for church {{ strtolower($data->Category_Name) }}</p>
+                </div>
+            @empty
+                <p style="text-align: center; width: 100%; color: #94a3b8;">Financial updates are being calculated.</p>
+            @endforelse
+        </div>
+    </section>
+
     <!-- PLACE THIS AT THE VERY BOTTOM OF YOUR index.blade.php (Before <footer>) -->
     <div id="imageLightbox" class="lightbox-overlay">
         <span class="lightbox-close"></span>
@@ -174,49 +229,7 @@
 </body>
 </html>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
-
-        // 1. MOBILE MENU TOGGLE
-        const mobileToggle = document.getElementById('mobile-toggle');
-        const navMenu = document.getElementById('nav-menu');
-
-        if (mobileToggle) {
-            mobileToggle.addEventListener('click', () => {
-                navMenu.classList.toggle('show');
-                const icon = mobileToggle.querySelector('i');
-                icon.classList.toggle('fa-bars');
-                icon.classList.toggle('fa-xmark');
-            });
-        }
-
-        // Close menu when a link is clicked
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('show');
-                const icon = mobileToggle.querySelector('i');
-                if (icon) {
-                    icon.classList.add('fa-bars');
-                    icon.classList.remove('fa-xmark');
-                }
-            });
-        });
-
-
-
 
         // 2. BIBLE VERSE ROTATION (7 Seconds)
         const verses = [

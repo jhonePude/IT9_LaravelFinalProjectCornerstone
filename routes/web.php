@@ -8,16 +8,36 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\MemberPortalController;
 use App\Http\Controllers\EventController;
+use App\Models\Event;
+use App\Models\Transaction;
+use Illuminate\Support\Facades\DB;
 
 /* --- Public Landing Page --- */
 Route::get('/', function () { 
-    // If the user is already logged in, redirect them away from the landing page
     if (Auth::check()) {
         return Auth::user()->Role_Id == 1 
             ? redirect()->route('dashboard') 
             : redirect()->route('member.portal');
     }
-    return view('landingpage.landingpage'); 
+
+    // Fetch real events for the agenda list
+    $events = Event::with('category')->orderBy('Event_Date', 'asc')->take(4)->get();
+
+    // Fetch real Giving Impact percentages from Finance Database
+    $totalExpenses = Transaction::where('Type', 'Expense')->where('Status', 'Completed')->sum('Amount');
+    
+    $impactData = Transaction::select('transaction_categories.Category_Name', DB::raw('SUM(Amount) as total'))
+        ->join('transaction_categories', 'transactions.Category_Id', '=', 'transaction_categories.Category_Id')
+        ->where('Type', 'Expense')
+        ->where('Status', 'Completed')
+        ->groupBy('transaction_categories.Category_Name')
+        ->get()
+        ->map(function($item) use ($totalExpenses) {
+            $item->percentage = $totalExpenses > 0 ? round(($item->total / $totalExpenses) * 100) : 0;
+            return $item;
+        });
+
+    return view('landingpage.landingpage', compact('events', 'impactData')); 
 })->name('landing');
 
 
@@ -35,7 +55,7 @@ Route::post('/forgot-password/process', [AuthController::class, 'handleRecovery'
 Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
 
-/* --- Protected Routes (Must be logged in) --- */
+/* --- Protected Routes --- */
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

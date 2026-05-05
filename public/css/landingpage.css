@@ -43,7 +43,7 @@ nav {
 .logo-text { color: white; font-weight: 800; letter-spacing: 1px; margin: 0; font-size: 1.2rem; }
 .nav-links a { color: white; text-decoration: none; margin-left: 25px; font-size: 14px; font-weight: 600; transition: 0.3s; }
 .nav-links a:hover { color: var(--gold); }
-.btn-portal { border: 2px solid var(--gold); padding: 8px 20px; border-radius: 50px; color: var(--gold) !important; }
+.btn-portal { border: 2px solid var(--gold); padding: 8px 20px; border-radius: 50px; color: var(--gold) !important; text-decoration: none; }
 .btn-portal:hover { background: var(--gold); color: var(--navy) !important; }
 
 /* Hero Section */
@@ -154,6 +154,46 @@ section { padding: 80px 10%; }
     to {transform: scale(1); opacity: 1;}
 }
 
+/* --- AGENDA LIST STYLES --- */
+.agenda-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.agenda-item {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border-left: 5px solid var(--gold);
+    transition: 0.3s;
+}
+.agenda-item:hover { transform: scale(1.02); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+.agenda-date {
+    text-align: center;
+    padding-right: 25px;
+    border-right: 1px solid #eee;
+    min-width: 80px;
+}
+.agenda-date .day { display: block; font-size: 1.8rem; font-weight: 800; color: var(--navy); line-height: 1; }
+.agenda-date .month { font-size: 0.9rem; font-weight: 700; color: var(--gold); text-transform: uppercase; }
+.agenda-info { flex: 1; padding: 0 25px; }
+.agenda-badge { font-size: 10px; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; }
+.agenda-info h3 { margin: 5px 0; font-size: 1.2rem; color: var(--navy); }
+.agenda-info p { margin: 0; color: var(--text-muted); font-size: 0.9rem; }
+.agenda-btn { background: var(--navy); color: white !important; padding: 10px 25px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
+.agenda-btn:hover { background: var(--gold); color: var(--navy) !important; }
+
+/* --- GIVING IMPACT SECTION --- */
+.transparency-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; margin-top: 40px; }
+.transparency-card { background: white; padding: 35px 25px; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.transparency-icon { font-size: 2.5rem; color: var(--gold); margin-bottom: 15px; }
+.transparency-card h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 10px; }
+.percentage-wrapper { background: #f1f5f9; border-radius: 50px; height: 25px; overflow: hidden; margin: 15px 0; }
+.percentage-bar { background: var(--navy); color: white; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; height: 100%; transition: width 1s ease-in-out; }
+
 /* Section 3: Connect & Grow */
 .connect { background: white; text-align: center; }
 .connect-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 40px; }
@@ -172,19 +212,23 @@ footer { background: var(--navy); color: white; text-align: center; padding: 40p
     .about-mission { flex-direction: column-reverse; text-align: center; }
     .about-image { box-shadow: 10px 10px 0px var(--gold); }
     .lightbox-content { width: 95%; }
+
+    /* RESTORED ORIGINAL STACKED BUTTONS AND BORDER RADIUS */
     .hero .btn-portal {
-        display: inline-block; /* or 'block' */
+        display: inline-block; 
         width: 100%;
         max-width: 200px;
-        border-radius: 10px;
+        border-radius: 10px; /* Original border radius */
         text-align: center;
     }
-    
     .hero-btns {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 10px;
     }
-    
+
+    .agenda-item { flex-direction: column; text-align: center; }
+    .agenda-date { border-right: none; border-bottom: 1px solid #eee; padding: 0 0 15px 0; margin-bottom: 15px; width: 100%; }
+    .agenda-info { padding: 0 0 20px 0; }
 }
