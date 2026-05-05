@@ -60,7 +60,13 @@
             <div class="dropdown-trigger" onclick="toggleDropdown()">
                 @auth
                     <div class="user-profile-info">
-                        <img src="{{ Auth::user()->Profile_Picture && file_exists(public_path('images/'.Auth::user()->Profile_Picture)) ? asset('images/'.Auth::user()->Profile_Picture) : asset('images/profile-male.png') }}" class="user-avatar-small">
+                        {{-- FIX: Production fallback for profile pictures --}}
+                        @php
+                            $userPhoto = Auth::user()->Profile_Picture;
+                            $photoPath = public_path('images/' . $userPhoto);
+                            $displayPhoto = ($userPhoto && file_exists($photoPath)) ? asset('images/' . $userPhoto) : asset('images/profile-male.png');
+                        @endphp
+                        <img src="{{ $displayPhoto }}" class="user-avatar-small">
                         <span class="user-name-small">{{ Auth::user()->Fullname }}</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
@@ -70,6 +76,7 @@
             <div id="myDropdown" class="dropdown-content">
                 @auth
                     @if(Request::is('member/portal*'))
+                        {{-- FIX: Dashboard link only for Admin (Role 1) --}}
                         @if(Auth::user()->Role_Id == 1)
                             <a href="{{ route('dashboard') }}">
                                 <i class="fa-solid fa-chart-line"></i> Dashboard

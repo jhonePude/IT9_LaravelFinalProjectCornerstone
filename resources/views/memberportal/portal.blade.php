@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="{{ asset('css/myPortal.css') }}">
     <link rel="icon" href="/images/logo.png?v=3">
     <style>
-        /* ================= SKELETON LOADING SYSTEM ================= */
         .skeleton-box {
             background: #e2e8f0;
             background: linear-gradient(90deg, #e2e8f0 25%, #f8fafc 50%, #e2e8f0 75%);
@@ -15,11 +14,7 @@
             display: block;
         }
         @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-
-        /* Initial state: Hide real content */
         #actual-portal { display: none !important; }
-
-        /* MOBILE FIX FOR SKELETON */
         @media (max-width: 768px) {
             #skeleton-portal {
                 padding-top: 10px;
@@ -33,7 +28,6 @@
 
 @section('content')
 
-    <!-- ================= SKELETON STATE (Visible First) ================= -->
     <div id="skeleton-portal">
         <div class="profile-card" style="background: white; border: none; margin-bottom: 20px;">
             <div class="profile-header" style="display: flex; align-items: center; gap: 20px;">
@@ -53,15 +47,18 @@
         </div>
     </div>
 
-    <!-- ================= ACTUAL CONTENT ================= -->
     <div id="actual-portal">
         <div class="profile-card">
             <div class="profile-header">
-                {{-- ISSUE 2 FIX: Triggered via avatar click --}}
                 <input type="file" id="profileInput" style="display:none" accept="image/*">
                 
                 <div class="avatar" onclick="document.getElementById('profileInput').click()">
-                    <img id="avatarImage" src="{{ asset('images/' . ($user->Profile_Picture ?? 'profile-male.png')) }}">
+                    @php
+                        $userPhoto = $user->Profile_Picture;
+                        $photoPath = public_path('images/' . $userPhoto);
+                        $displayPhoto = ($userPhoto && file_exists($photoPath)) ? asset('images/' . $userPhoto) : asset('images/profile-male.png');
+                    @endphp
+                    <img id="avatarImage" src="{{ $displayPhoto }}">
                     <div class="avatar-overlay"><i class="fa-solid fa-camera"></i></div>
                 </div>
                 
@@ -88,7 +85,6 @@
                     <div class="notif-dropdown" id="notifDropdown">
                         <div class="notif-header">
                             <span>Notifications</span>
-                            {{-- ISSUE 1 FIX --}}
                             <a href="javascript:void(0)" onclick="markAllAsRead()" style="color: #2563eb; text-decoration: none; font-size: 11px;">Mark as read</a>
                         </div>
                         <div class="notif-list" id="notifListItems">
@@ -127,13 +123,10 @@
         <div id="pagination-portal" class="pagination-container"></div>
     </div>
 
-    <!-- Details Modal -->
-    {{-- ISSUE 3 FIX: Backdrop click added --}}
     <div id="DetailsModal" class="modal-overlay" onclick="handleBackdropClick(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-banner">
                 <img src="" id="modalImg">
-                {{-- ISSUE 3 FIX: Close icon works --}}
                 <i class="fa-solid fa-circle-xmark close-icon" onclick="closeAllModals()"></i>
             </div>
             <div class="modal-body">
@@ -168,7 +161,6 @@
     let portalCurrentPage = 1;
     const portalPerPage = 6;
 
-    // --- INITIAL DATA LOAD ---
     function loadPortalEvents() {
         fetch("{{ route('portal.events.data') }}")
             .then(res => res.json())
@@ -182,7 +174,6 @@
             });
     }
 
-    // --- RENDERING ENGINE ---
     function renderEvents() {
         const term = searchInput.value.toLowerCase();
         const filtered = allEvents.filter(ev => {
@@ -231,7 +222,6 @@
         });
     }
 
-    // --- FEATURE: Toggle Join/Leave ---
     window.toggleJoin = (e, id, joined) => {
         e.stopPropagation();
         document.getElementById('dialogMessage').innerText = joined ? "Leave this event?" : "Join this event?";
@@ -253,7 +243,6 @@
         };
     };
 
-    // --- ISSUE 1 FIX: Mark Notifications Read ---
     window.markAllAsRead = function() {
         fetch("{{ route('notifications.markRead') }}", {
             method: 'POST',
@@ -267,7 +256,6 @@
         });
     };
 
-    // --- ISSUE 2 FIX: Profile Photo Upload ---
     document.getElementById('profileInput').onchange = function() {
         if (this.files && this.files[0]) {
             let formData = new FormData();
@@ -278,15 +266,14 @@
                 body: formData
             }).then(res => res.json()).then(data => {
                 if (data.success) window.location.reload();
+                else alert("Upload failed. Please check folder permissions.");
             });
         }
     };
 
-    // --- ISSUE 3 FIX: Modal Close Fixes ---
     window.closeAllModals = () => document.getElementById('DetailsModal').classList.remove('active');
     window.handleBackdropClick = (e) => { if(e.target.id === 'DetailsModal') closeAllModals(); };
 
-    // --- UTILS ---
     function formatTime(timeString) {
         if(!timeString) return "TBA";
         const [hour, minute] = timeString.split(':');
@@ -321,7 +308,6 @@
         }
     }
 
-    // --- SEARCH/FILTER LISTENERS ---
     searchInput.oninput = () => { portalCurrentPage = 1; renderEvents(); };
     document.getElementById('filterJoined').onclick = function() {
         document.getElementById('filterUpcoming').classList.remove('active');
@@ -338,7 +324,6 @@
         renderEvents();
     };
 
-    // Toggle Notifications Dropdown
     const bell = document.getElementById('notifBell');
     const drop = document.getElementById('notifDropdown');
     bell.onclick = (e) => { e.stopPropagation(); drop.classList.toggle('active'); };
