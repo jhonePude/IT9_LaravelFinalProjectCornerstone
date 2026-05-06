@@ -467,12 +467,12 @@ footer {
 /* ===== MOBILE RESPONSIVE (FIX OVERFLOW) ===== */
 @media (max-width: 768px) {
     nav {
-        justify-content: center;
+        justify-content: left;
         padding: 12px 5%;
     }
     
     .logo-area {
-        justify-content: center;
+        justify-content: left;
         width: 100%;
     }
     
