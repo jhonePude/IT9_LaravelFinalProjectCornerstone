@@ -228,7 +228,33 @@ body::-webkit-scrollbar {
     width: 0px;               /* Remove scrollbar width */
     background: transparent;  /* Make track transparent */
 }
+/* Better feedback for Edit/Delete icons */
+.edit-icon, .delete-icon {
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+}
 
+.edit-icon:hover {
+    background-color: #2563eb !important;
+    color: white !important;
+    transform: scale(1.1);
+}
+
+.delete-icon:hover {
+    background-color: #dc2626 !important;
+    color: white !important;
+    transform: scale(1.1);
+}
+
+.edit-icon:active, .delete-icon:active {
+    transform: scale(0.9);
+}
 
 @keyframes modalPopUp {
     from { transform: scale(0.8); opacity: 0; }
@@ -740,6 +766,7 @@ body.sidebar-collapsed .table-wrapper {
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     border: 1px solid #e2e8f0;
+    color: transparent;
     
 }
 
@@ -914,19 +941,14 @@ body.sidebar-collapsed .table-wrapper {
         /* FIXED: Removed -1575px and set to 0 to appear naturally below the table */
         bottom: 0 !important;         
         top: 800px !important; /* Aligned to follow the table-wrapper's top: 825px */
-        left: -40px !important;
+        position: relative !important;
+        top: 300px !important; /* This puts it exactly below the table wrapper */
+        left: 0 !important;
         right: 0 !important;
-        margin: 20px auto !important; 
-        border-bottom-left-radius: 20px !important;
-        border-bottom-right-radius: 20px !important;
-        
-        background-color: #ffffff !important;
-        width: 130% !important;
-        height: auto !important; 
-        display: flex !important;
-        justify-content: center !important; 
-        align-items: center !important;
-        padding: 15px 0 !important; 
+        margin: 20px auto 100px auto !important; /* Bottom margin for space */
+        width: 100% !important;
+        background: transparent !important;
+        box-shadow: none !important;
         
         z-index: 500 !important;
         pointer-events: auto;  
