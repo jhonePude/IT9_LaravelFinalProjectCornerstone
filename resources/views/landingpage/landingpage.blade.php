@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Cornerstone Community Church | Welcome</title>
-    <link rel="stylesheet" href="{{ asset('css/landingpage.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/landingpage.css') }}?v=1.1">
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}?v=1.1">
     <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
