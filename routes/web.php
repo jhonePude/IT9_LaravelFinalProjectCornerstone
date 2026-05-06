@@ -22,8 +22,14 @@ Route::get('/', function () {
 
     $events = Event::with('category')->orderBy('Event_Date', 'asc')->take(4)->get();
 
+    // Finance data for Loading Bars
     $totalExpenses = Transaction::where('Type', 'Expense')->where('Status', 'Completed')->sum('Amount');
+    $totalIncome = Transaction::where('Type', 'Income')->where('Status', 'Completed')->sum('Amount');
     
+    $totalFinance = $totalIncome + $totalExpenses;
+    $incomePercentage = $totalFinance > 0 ? round(($totalIncome / $totalFinance) * 100) : 0;
+    $expensePercentage = $totalFinance > 0 ? round(($totalExpenses / $totalFinance) * 100) : 0;
+
     $impactData = Transaction::select('transaction_categories.Category_Name', DB::raw('SUM(Amount) as total'))
         ->join('transaction_categories', 'transactions.Category_Id', '=', 'transaction_categories.Category_Id')
         ->where('Type', 'Expense')
@@ -35,10 +41,10 @@ Route::get('/', function () {
             return $item;
         });
 
-    return view('landingpage.landingpage', compact('events', 'impactData')); 
+    return view('landingpage.landingpage', compact('events', 'impactData', 'totalIncome', 'totalExpenses', 'incomePercentage', 'expensePercentage')); 
 })->name('landing');
 
-/* --- Authentication --- */
+// ... (Rest of your routes remain exactly the same)
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
@@ -48,7 +54,6 @@ Route::post('/forgot-password/process', [AuthController::class, 'handleRecovery'
 Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
 
-/* --- Protected Routes --- */
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/member/portal', [MemberPortalController::class, 'index'])->name('member.portal');

@@ -4,6 +4,7 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/events.css') }}">
+    <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
         /* ================= SKELETON CSS ================= */

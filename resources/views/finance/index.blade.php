@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Financial Overview')
-
+<link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/finance.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">

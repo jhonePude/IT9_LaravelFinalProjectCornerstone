@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Admin Dashboard')
-
+<link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 @endpush

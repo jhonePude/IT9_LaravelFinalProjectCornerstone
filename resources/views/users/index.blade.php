@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Members Overview')
-
+<link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/users.css') }}">
     <style>

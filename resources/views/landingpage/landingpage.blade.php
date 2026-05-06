@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Cornerstone Community Church | Welcome</title>
     <link rel="stylesheet" href="{{ asset('css/landingpage.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
@@ -11,28 +11,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         html { scroll-behavior: smooth; }
-        :root { --gold: #d4af37; --navy: #0f172a; }
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 1.2s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
         #dynamic-verse { transition: opacity 0.8s ease-in-out; min-height: 3.5em; display: block; }
-        .nav-links a { cursor: pointer; }
     </style>
 </head>
 <body>
 
+    <!-- Header: Only logo, no navigation links -->
     <nav>
         <div class="logo-area">
             <img src="{{ asset('images/logo.png') }}" class="logo-img" alt="Cornerstone Logo">
             <h2 class="logo-text">CORNERSTONE</h2>
-        </div>
-        <div class="mobile-menu-toggle" id="mobile-toggle"><i class="fa-solid fa-bars"></i></div>
-        <div class="nav-links" id="nav-menu">
-            <a href="#home">Home</a>
-            <a href="#about">Our Mission</a>
-            <a href="#events">Events</a>
-            <a href="#giving-impact">Giving Impact</a>
-            <a href="#connect">Connect</a>
-            <a href="/login" class="btn-portal">Sign in</a>
         </div>
     </nav>
 
@@ -43,7 +31,7 @@
             <p id="dynamic-verse">"Go into all the world and proclaim the gospel to the whole creation." <br>— Mark 16:15</p>
             <div class="hero-btns">
                 <a href="/register" class="btn-main">Join Our Community</a>
-                <a href="/login" class="btn-portal hero-portal-mobile">Sign in</a>
+                <a href="/login" class="hero-signin-btn">Sign in</a>
             </div>
         </div>
     </header>
@@ -64,19 +52,22 @@
         <div class="about-image"><img src="{{ asset('images/church1.jpg') }}" alt="Our Community" id="churchImage" style="cursor: zoom-in;"></div>
     </section>
 
+    <!-- UPCOMING EVENTS -->
     <section class="landing-events reveal" id="events" style="background: #fff;">
         <div class="section-header"><h2>Upcoming Events</h2><div class="divider"></div></div>
-        <div class="landing-events-grid">
+        <div class="events-list-container">
             @forelse($events as $event)
-                <div class="landing-event-card">
-                    <div class="landing-event-image">
-                        <span class="landing-event-badge">{{ $event->category->Event_Category_Name ?? 'General' }}</span>
-                        <img src="{{ Str::contains($event->Image_Banner, 'http') ? $event->Image_Banner : asset('images/'.$event->Image_Banner) }}">
+                <div class="event-list-row">
+                    <div class="event-date-col">
+                        <span class="event-day">{{ \Carbon\Carbon::parse($event->Event_Date)->format('d') }}</span>
+                        <span class="event-month">{{ \Carbon\Carbon::parse($event->Event_Date)->format('M') }}</span>
                     </div>
-                    <div class="landing-event-body">
+                    <div class="event-text-col">
+                        <span class="event-tag-gold">{{ $event->category->Event_Category_Name ?? 'General' }}</span>
                         <h3>{{ $event->Title }}</h3>
-                        <p><i class="fa-regular fa-calendar"></i> {{ \Carbon\Carbon::parse($event->Event_Date)->format('M d, Y') }}</p>
-                        <a href="{{ route('register') }}" class="landing-join-btn">Join Event</a>
+                    </div>
+                    <div class="event-btn-col">
+                        <a href="{{ route('register') }}" class="btn-join-list">Join Event</a>
                     </div>
                 </div>
             @empty
@@ -85,41 +76,64 @@
         </div>
     </section>
 
-    <!-- SIMPLIFIED SECTION: "Where Your Giving Goes" -->
+    <!-- GIVING IMPACT -->
     <section class="giving-impact reveal" id="giving-impact" style="background: #fdfdfd;">
         <div class="section-header">
             <h2>Where Your Giving Goes</h2>
             <div class="divider"></div>
-            <p style="color: #64748b; margin-top: 15px;">Your tithes and offerings are used faithfully to help others and maintain our church home.</p>
+            <p style="color: #64748b; margin-top: 15px;">Transparency in our ministry finances and how we use God's resources.</p>
         </div>
-        <div class="impact-grid">
-            <div class="impact-box">
-                <div class="impact-icon" style="background: #fff4e5;"><i class="fa-solid fa-heart-pulse" style="color: #f39c12;"></i></div>
-                <h3>Missions & Helping Others</h3>
-                <p>We send support to poor communities and local missions.</p>
+        
+        <div class="giving-loading-card">
+            <div class="giving-loading-group">
+                <div class="loading-label"><span>Total General Income</span> <strong>₱{{ number_format($totalIncome, 2) }}</strong></div>
+                <div class="loading-bar-bg"><div class="loading-bar-fill income" style="width: 100%"></div></div>
             </div>
-            <div class="impact-box">
-                <div class="impact-icon" style="background: #e8f5e9;"><i class="fa-solid fa-house-chimney-window" style="color: #27ae60;"></i></div>
-                <h3>Our Church Home</h3>
-                <p>Maintaining the building and paying for lights and water.</p>
+            
+            <div class="giving-loading-group">
+                <div class="loading-label"><span>Total Ministry Expenses</span> <strong>₱{{ number_format($totalExpenses, 2) }}</strong></div>
+                <div class="loading-bar-bg"><div class="loading-bar-fill expense" style="width: {{ $expensePercentage }}%"></div></div>
             </div>
-            <div class="impact-box">
-                <div class="impact-icon" style="background: #e3f2fd;"><i class="fa-solid fa-graduation-cap" style="color: #2980b9;"></i></div>
-                <h3>Youth & Children</h3>
-                <p>Providing books and activities for our Sunday School kids.</p>
+
+            <div class="expense-breakdown-area">
+                <p>Current Expense Allocation</p>
+                @foreach($impactData as $data)
+                <div class="breakdown-mini">
+                    <div class="breakdown-info"><span>{{ $data->Category_Name }}</span> <span>{{ $data->percentage }}%</span></div>
+                    <div class="loading-bar-bg small"><div class="loading-bar-fill gold" style="width: {{ $data->percentage }}%"></div></div>
+                </div>
+                @endforeach
             </div>
         </div>
     </section>
 
+    <!-- Lightbox -->
     <div id="imageLightbox" class="lightbox-overlay"><span class="lightbox-close"></span><img class="lightbox-content" id="imgFull"></div>
 
+    <!-- NEXT STEPS -->
     <section class="connect reveal" id="connect">
         <div class="section-header"><h2>Take Your Next Step</h2><div class="divider"></div></div>
         <div class="connect-grid">
-            <div class="connect-card"><i class="fa-solid fa-users-viewfinder"></i><h4>Small Groups</h4></div>
-            <div class="connect-card"><i class="fa-solid fa-heart-pulse"></i><h4>Youth Ministry</h4></div>
-            <div class="connect-card"><i class="fa-solid fa-hand-holding-heart"></i><h4>Serve</h4></div>
-            <div class="connect-card"><i class="fa-solid fa-gift"></i><h4>Online Giving</h4></div>
+            <div class="connect-card">
+                <i class="fa-solid fa-users-viewfinder"></i>
+                <h4>Small Groups</h4>
+                <p>Build lasting friendships while growing deeper in God's word together.</p>
+            </div>
+            <div class="connect-card">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <h4>Youth Ministry</h4>
+                <p>Inspiring the next generation to lead lives rooted in faith and purpose.</p>
+            </div>
+            <div class="connect-card">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+                <h4>Serve</h4>
+                <p>Make a difference by using your God-given talents to serve our community.</p>
+            </div>
+            <div class="connect-card">
+                <i class="fa-solid fa-gift"></i>
+                <h4>Online Giving</h4>
+                <p>Support our global mission safely and securely from wherever you are.</p>
+            </div>
         </div>
     </section>
 
@@ -129,10 +143,7 @@
     </footer>
 
     <script>
-        const mobileToggle = document.getElementById('mobile-toggle');
-        const navMenu = document.getElementById('nav-menu');
-        if (mobileToggle) { mobileToggle.onclick = () => navMenu.classList.toggle('show'); }
-
+        // Dynamic Bible verses
         const verses = [
             { text: "Go into all the world and proclaim the gospel to the whole creation.", ref: "Mark 16:15" },
             { text: "For God so loved the world, that he gave his only Son.", ref: "John 3:16" },
@@ -141,24 +152,45 @@
         let verseIndex = 0;
         setInterval(() => {
             const el = document.getElementById('dynamic-verse');
-            el.style.opacity = 0;
-            setTimeout(() => {
-                verseIndex = (verseIndex + 1) % verses.length;
-                el.innerHTML = `"${verses[verseIndex].text}" <br>— ${verses[verseIndex].ref}`;
-                el.style.opacity = 1;
-            }, 800);
+            if (el) {
+                el.style.opacity = 0;
+                setTimeout(() => {
+                    verseIndex = (verseIndex + 1) % verses.length;
+                    el.innerHTML = `"${verses[verseIndex].text}" <br>— ${verses[verseIndex].ref}`;
+                    el.style.opacity = 1;
+                }, 800);
+            }
         }, 7000);
 
+        // Scroll reveal
         function reveal() {
             document.querySelectorAll(".reveal").forEach(r => {
-                if (r.getBoundingClientRect().top < window.innerHeight - 150) r.classList.add("active");
+                if (r.getBoundingClientRect().top < window.innerHeight - 150) {
+                    r.classList.add("active");
+                }
             });
         }
-        window.onscroll = reveal; reveal();
+        window.addEventListener("scroll", reveal);
+        reveal();
 
+        // Lightbox functionality
         const lightbox = document.getElementById("imageLightbox");
-        document.getElementById("churchImage").onclick = function() { lightbox.style.display = "block"; document.getElementById("imgFull").src = this.src; }
-        document.querySelector(".lightbox-close").onclick = () => lightbox.style.display = "none";
+        const churchImage = document.getElementById("churchImage");
+        if (churchImage) {
+            churchImage.onclick = function() { 
+                lightbox.style.display = "block"; 
+                document.getElementById("imgFull").src = this.src; 
+            };
+        }
+        const closeBtn = document.querySelector(".lightbox-close");
+        if (closeBtn) {
+            closeBtn.onclick = () => lightbox.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == lightbox) {
+                lightbox.style.display = "none";
+            }
+        };
     </script>
 </body>
 </html>
