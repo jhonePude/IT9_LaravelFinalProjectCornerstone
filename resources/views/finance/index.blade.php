@@ -244,14 +244,18 @@
 
     window.openEditTnx = function(tnx) {
         modalTitle.innerText = 'Edit Transaction';
-        document.getElementById('edit_user_id').value = tnx.Transaction_Id; // Note: check if ID should be edit_tnx_id
+        
+        // FIX THIS LINE: Change 'edit_user_id' to 'edit_tnx_id'
+        document.getElementById('edit_tnx_id').value = tnx.Transaction_Id; 
+        
         document.getElementById('description-input').value = tnx.Description;
         document.getElementById('type-input').value = tnx.Type;
         document.getElementById('category-input').value = tnx.Category_Id;
         document.getElementById('amount-input').value = tnx.Amount;
         document.getElementById('date-input').value = tnx.Transaction_Date.split('T')[0];
         document.getElementById('status-input').value = tnx.Status;
-        modal.classList.add('active');
+        
+        modal.classList.add('active'); // This opens the modal
     };
 
     window.deleteTnx = function(id) {
